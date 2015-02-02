@@ -3,6 +3,7 @@ package hr.tvz.zavrsni.transportapplication;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -72,7 +73,7 @@ public class JobListActivity extends ActionBarActivity {
          * Pozadinsko učitavanje kategorija
          **/
         @Override
-        protected ArrayList<Job> doInBackground(String... params) {
+        protected ArrayList<Job> doInBackground(@NonNull String... params) {
             try {
                 JSONParser jParser = new JSONParser();
                 String url = "http://10.0.2.2/transportGetJobsByCategory.php?category_id=" + params[0];
@@ -95,14 +96,14 @@ public class JobListActivity extends ActionBarActivity {
         }
 
         @Override
-        protected void onPostExecute(ArrayList<Job> jobList) {
+        protected void onPostExecute(@NonNull ArrayList<Job> jobList) {
             ListView listView = (ListView)findViewById(R.id.jobList);
             JobAdapter adapter = new JobAdapter(getApplicationContext(),jobList);
             listView.setAdapter(adapter);
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                public void onItemClick(@NonNull AdapterView<?> parent, @NonNull View view, int position, long id) {
                     TextView idTextView = (TextView)view.findViewById(R.id.jobId);
                     Intent i = new Intent(JobListActivity.this, JobActivity.class);
                     i.putExtra("job_id",idTextView.getText().toString());
