@@ -62,7 +62,7 @@ public class CategoriesActivity extends ActionBarActivity implements TransportAp
         App app = (App) getApplication();
         app.setTransportApiListener(this);
 
-        app.invokeApi(App.GET_CATEGORIES);
+        app.getCategories();
         Toast.makeText(getApplicationContext(),"Loading categories...", Toast.LENGTH_SHORT).show();
     }
 
