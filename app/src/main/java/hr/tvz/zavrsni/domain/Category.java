@@ -2,18 +2,23 @@ package hr.tvz.zavrsni.domain;
 
 import android.util.Log;
 
+import com.google.gson.annotations.SerializedName;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import hr.tvz.zavrsni.util.Const;
+
 /**
  * Created by Kristian on 20.1.2015..
  */
 public class Category {
-    private String id;
-    private String name;
+
+    @SerializedName(Const.CATEGORY_ID) private String id;
+    @SerializedName(Const.CATEGORY_NAME) private String name;
 
     public Category() {
     }

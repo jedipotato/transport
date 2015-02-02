@@ -2,10 +2,9 @@ package hr.tvz.zavrsni.transportapplication;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,17 +13,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 import hr.tvz.zavrsni.adapter.CategoryAdapter;
 import hr.tvz.zavrsni.domain.Category;
-import hr.tvz.zavrsni.json.JSONParser;
+import hr.tvz.zavrsni.domain.api.Categories;
+import hr.tvz.zavrsni.json.TransportApiListener;
 
 
-public class CategoriesActivity extends ActionBarActivity {
+public class CategoriesActivity extends ActionBarActivity implements TransportApiListener<Categories> {
 
     public ProgressDialog pDialog;
     public ArrayList<Category> categoryList = new ArrayList<>();
@@ -34,9 +31,8 @@ public class CategoriesActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
 
-        new LoadAllCategories().execute();
+//        new LoadAllCategories().execute();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,63 +56,100 @@ public class CategoriesActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    class LoadAllCategories extends AsyncTask<String, Void, ArrayList<Category>>{
+    @Override
+    protected void onResume() {
+        super.onResume();
+        App app = (App) getApplication();
+        app.setTransportApiListener(this);
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            Toast.makeText(getApplicationContext(),"Loading categories...",Toast.LENGTH_SHORT).show();
-            /*pDialog = new ProgressDialog(CategoriesActivity.this);
-            pDialog.setMessage("");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(false);
-            pDialog.show();*/
-        }
+        app.invokeApi(App.GET_CATEGORIES);
+        Toast.makeText(getApplicationContext(),"Loading categories...", Toast.LENGTH_SHORT).show();
+    }
 
-        /**
-        * Pozadinsko učitavanje kategorija
-        **/
-        @Override
-        protected ArrayList<Category> doInBackground(@NonNull String... params) {
-            try {
-                JSONParser jParser = new JSONParser();
-                String url = "http://10.0.2.2/transportGetCategories.php";
-                JSONObject jObject = jParser.makeHttpRequest(url);
+    @Override
+    protected void onPause() {
+        super.onPause();
+        App app = (App) getApplication();
+        app.removeTransportApiListener();
+    }
 
-                Integer success = jObject.getInt("success");
+    @Override
+    public void onApiResponse(Categories response) {
+        ListView listView = (ListView) findViewById(R.id.categoryList);
+        CategoryAdapter adapter = new CategoryAdapter(getApplicationContext(), new ArrayList<>(response.getCategoriesList()));
+        listView.setAdapter(adapter);
 
-                if (success == 1) {
-                    categoryList = Category.getListFromJSON(jObject);
-                }
-                else {
-                    Toast.makeText(getApplicationContext(), "No categories available!", Toast.LENGTH_SHORT).show();
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            return categoryList;
-        }
-
-        @Override
-        protected void onPostExecute(@NonNull ArrayList<Category> categoryList) {
-            ListView listView = (ListView)findViewById(R.id.categoryList);
-            CategoryAdapter adapter = new CategoryAdapter(getApplicationContext(),categoryList);
-            listView.setAdapter(adapter);
-
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(@NonNull AdapterView<?> parent, @NonNull View view, int position, long id) {
-                    TextView idTextView = (TextView)view.findViewById(R.id.categoryId);
-                    Intent i = new Intent(CategoriesActivity.this, JobListActivity.class);
-                    i.putExtra("category_id",idTextView.getText().toString());
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull AdapterView<?> parent, @NonNull View view, int position, long id) {
+                TextView idTextView = (TextView) view.findViewById(R.id.categoryId);
+                Intent i = new Intent(CategoriesActivity.this, JobListActivity.class);
+                i.putExtra("category_id", idTextView.getText().toString());
 
                     /*CategoryAdapter adapter = (CategoryAdapter) parent.getAdapter();
                     adapter.getItem(position).getId();*/
-                    startActivity(i);
-                }
-            });
-
-        }
+                startActivity(i);
+            }
+        });
     }
+
+    //    class LoadAllCategories extends AsyncTask<String, Void, ArrayList<Category>>{
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            Toast.makeText(getApplicationContext(),"Loading categories...",Toast.LENGTH_SHORT).show();
+//            /*pDialog = new ProgressDialog(CategoriesActivity.this);
+//            pDialog.setMessage("");
+//            pDialog.setIndeterminate(false);
+//            pDialog.setCancelable(false);
+//            pDialog.show();*/
+//        }
+//
+//        /**
+//        * Pozadinsko učitavanje kategorija
+//        **/
+//        @Override
+//        protected ArrayList<Category> doInBackground(@NonNull String... params) {
+//            try {
+//                JSONParser jParser = new JSONParser();
+//                String url = "http://10.0.2.2/transportGetCategories.php";
+//                JSONObject jObject = jParser.makeHttpRequest(url);
+//
+//                Integer success = jObject.getInt("success");
+//
+//                if (success == 1) {
+//                    categoryList = Category.getListFromJSON(jObject);
+//                }
+//                else {
+//                    Toast.makeText(getApplicationContext(), "No categories available!", Toast.LENGTH_SHORT).show();
+//                }
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//
+//            return categoryList;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(@NonNull ArrayList<Category> categoryList) {
+//            ListView listView = (ListView)findViewById(R.id.categoryList);
+//            CategoryAdapter adapter = new CategoryAdapter(getApplicationContext(),categoryList);
+//            listView.setAdapter(adapter);
+//
+//            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(@NonNull AdapterView<?> parent, @NonNull View view, int position, long id) {
+//                    TextView idTextView = (TextView)view.findViewById(R.id.categoryId);
+//                    Intent i = new Intent(CategoriesActivity.this, JobListActivity.class);
+//                    i.putExtra("category_id",idTextView.getText().toString());
+//
+//                    /*CategoryAdapter adapter = (CategoryAdapter) parent.getAdapter();
+//                    adapter.getItem(position).getId();*/
+//                    startActivity(i);
+//                }
+//            });
+//
+//        }
+//    }
 }
