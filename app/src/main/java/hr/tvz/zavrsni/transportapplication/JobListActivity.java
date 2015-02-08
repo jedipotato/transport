@@ -33,7 +33,13 @@ public class JobListActivity extends ActionBarActivity implements TransportApiLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_list);
 
-        mCategoryId = getIntent().getStringExtra("category_id");
+        if(getIntent().hasExtra("category_id")) {
+            mCategoryId = getIntent().getStringExtra("category_id");
+        }
+        else {
+            Log.e("JobListActivity::category_id",mCategoryId);
+        }
+
     }
 
 
