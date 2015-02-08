@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import hr.tvz.zavrsni.domain.api.BasicModel;
@@ -20,7 +20,11 @@ public class RegistrationActivity extends TransportActivity implements Transport
     private String mInputEmail;
     private String mInputPassword;
 
-    private TextView mWarning;
+    private EditText mEditTextName;
+    private EditText mEditTextSurname;
+    private EditText mEditTextUsername;
+    private EditText mEditTextEmail;
+    private EditText mEditTextPassword;
 
     private App mApp;
 
@@ -30,7 +34,11 @@ public class RegistrationActivity extends TransportActivity implements Transport
         setContentView(R.layout.activity_registration);
         mApp = (App) getApplication();
 
-        mWarning = (TextView)findViewById(R.id.registerWarning);
+        mEditTextName = (EditText) findViewById(R.id.registerInputName);
+        mEditTextSurname = (EditText) findViewById(R.id.registerInputSurname);
+        mEditTextUsername = (EditText) findViewById(R.id.registerInputUsername);
+        mEditTextEmail = (EditText) findViewById(R.id.registerInputEmail);
+        mEditTextPassword = (EditText) findViewById(R.id.registerInputPassword);
     }
 
     @Override
@@ -57,11 +65,11 @@ public class RegistrationActivity extends TransportActivity implements Transport
     protected void onDebugBuildOnly() {
         super.onDebugBuildOnly();
 
-        ((TextView) findViewById(R.id.registerInputName)).setText("Pero");
-        ((TextView) findViewById(R.id.registerInputSurname)).setText("Kvrzica");
-        ((TextView) findViewById(R.id.registerInputUsername)).setText("ppero");
-        ((TextView) findViewById(R.id.registerInputEmail)).setText("email@gmail.com");
-        ((TextView) findViewById(R.id.registerInputPassword)).setText("123456");
+//        mEditTextName.setText("Pero");
+//        mEditTextSurname.setText("Kvrzica");
+//        mEditTextUsername.setText("ppero");
+//        mEditTextEmail.setText("email@gmail.com");
+//        mEditTextPassword.setText("123456");
     }
 
     @Override
@@ -87,33 +95,42 @@ public class RegistrationActivity extends TransportActivity implements Transport
     }
 
     public void onClickSubmit(View view) {
-        mInputName = ((TextView)findViewById(R.id.registerInputName)).getText().toString();
-        mInputSurname = ((TextView)findViewById(R.id.registerInputSurname)).getText().toString();
-        mInputUsername = ((TextView)findViewById(R.id.registerInputUsername)).getText().toString();
-        mInputEmail = ((TextView)findViewById(R.id.registerInputEmail)).getText().toString();
-        mInputPassword = ((TextView)findViewById(R.id.registerInputPassword)).getText().toString();
+        mEditTextName.setError(null);
+        mEditTextSurname.setError(null);
+        mEditTextUsername.setError(null);
+        mEditTextEmail.setError(null);
+        mEditTextPassword.setError(null);
 
+        mInputName = mEditTextName.getText().toString();
+        mInputSurname = mEditTextSurname.getText().toString();
+        mInputUsername = mEditTextUsername.getText().toString();
+        mInputEmail = mEditTextEmail.getText().toString();
+        mInputPassword = mEditTextPassword.getText().toString();
+
+        boolean isOk = true;
         if(mInputName.length()<1 || mInputName.length()>30) {
-            mWarning.setText("Name input error!");
-            return;
+            mEditTextName.setError("Name input error!");
+            isOk = false;
         }
         if(mInputSurname.length()<1 || mInputSurname.length()>30) {
-            mWarning.setText("Last name input error!");
-            return;
+            mEditTextSurname.setError("Last name input error!");
+            isOk = false;
         }
         if(mInputUsername.length()<1 || mInputUsername.length()>12) {
-            mWarning.setText("Username input error!");
-            return;
+            mEditTextUsername.setError("Username input error!");
+            isOk = false;
         }
         if(mInputEmail.length()<2 || mInputEmail.length()>40) {
-            mWarning.setText("E-mail input error!");
-            return;
+            mEditTextEmail.setError("E-mail input error!");
+            isOk = false;
         }
         if(mInputPassword.length()<4 || mInputPassword.length()>30) {
-            mWarning.setText("Password minimum is 4 characters!");
-            return;
+            mEditTextPassword.setError("Password minimum is 4 characters!");
+            isOk = false;
         }
-        //TODO
+
+        if (!isOk) return;
+
         mApp.createUser(mInputName,mInputSurname,mInputUsername,mInputPassword,mInputEmail);
     }
 
