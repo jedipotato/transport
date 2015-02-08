@@ -22,16 +22,6 @@ public class Job {
     @SerializedName(Const.JOB_CREATION_DATE) private Date creationDate;
     @SerializedName(Const.JOB_EXPIRATION_DATE) private Date expirationDate;
 
-    @SerializedName(Const.SUCCESS) private int success;
-
-    public int getSuccess() {
-        return success;
-    }
-
-    public void isSuccess(int success) {
-        this.success = 1;
-    }
-
     public Job(String id, String name) {
         this.id = id;
         this.name = name;

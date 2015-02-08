@@ -2,9 +2,9 @@ package hr.tvz.zavrsni.transportapplication;
 
 import android.app.Application;
 import android.util.Log;
+import android.widget.Toast;
 
-import com.google.gson.Gson;
-
+import hr.tvz.zavrsni.domain.api.BasicModel;
 import hr.tvz.zavrsni.domain.api.Categories;
 import hr.tvz.zavrsni.domain.api.Job;
 import hr.tvz.zavrsni.domain.api.Jobs;
@@ -100,9 +100,19 @@ public class App extends Application implements ApiCallables {
     @Override
     public void createUser(String name, String surname, String username, String password, String email) {
         User user = new User(name, surname, username, password, email);
-        Gson gson = new Gson();
-        String jsonUser = gson.toJson(user); //TODO ovo radi i lijepo pretvori u json
-        mApiServices.putUser(jsonUser); 
+//        Gson gson = new Gson();
+//        String jsonUser = gson.toJson(user); //TODO ovo radi i lijepo pretvori u json
+        mApiServices.putUser(user, new Callback<BasicModel>() {
+            @Override
+            public void success(BasicModel basicModel, Response response) {
+                Toast.makeText(getApplicationContext(), "Success PUT", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
     }
 
 

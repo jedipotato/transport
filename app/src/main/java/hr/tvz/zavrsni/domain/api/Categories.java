@@ -10,10 +10,9 @@ import hr.tvz.zavrsni.util.Const;
 /**
  * Predstavlja model / domenu dobivenu preko API-a.
  */
-public class Categories {
+public class Categories extends BasicModel {
 
     @SerializedName(Const.CATEGORIES) private ArrayList<Category> categoriesList;
-    @SerializedName(Const.SUCCESS) private int success;
 
     public ArrayList<Category> getCategoriesList() {
         return categoriesList;
@@ -23,14 +22,6 @@ public class Categories {
         this.categoriesList = categoriesList;
     }
 
-    public boolean isSuccess() {
-        return success == 1;
-    }
-
-    public void setSuccess(int success) {
-        this.success = success;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -38,7 +29,6 @@ public class Categories {
 
         Categories that = (Categories) o;
 
-        if (success != that.success) return false;
         if (categoriesList != null ? !categoriesList.equals(that.categoriesList) : that.categoriesList != null)
             return false;
 
@@ -48,7 +38,6 @@ public class Categories {
     @Override
     public int hashCode() {
         int result = categoriesList != null ? categoriesList.hashCode() : 0;
-        result = 31 * result + success;
         return result;
     }
 
@@ -56,7 +45,6 @@ public class Categories {
     public String toString() {
         return "Categories{" +
                 "categoriesList=" + categoriesList +
-                ", success=" + success +
                 '}';
     }
 }

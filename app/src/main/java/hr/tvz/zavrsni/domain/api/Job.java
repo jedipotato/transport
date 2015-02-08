@@ -13,8 +13,6 @@ public class Job {
     @SerializedName(Const.JOB_CREATION_DATE) private String creationDate;
     @SerializedName(Const.JOB_EXPIRATION_DATE) private String expirationDate;
 
-    @SerializedName(Const.SUCCESS) private int success;
-
     public String getId() {
         return id;
     }
@@ -71,14 +69,6 @@ public class Job {
         this.expirationDate = expirationDate;
     }
 
-    public boolean isSuccess() {
-        return success == 1;
-    }
-
-    public void setSuccess(int success) {
-        this.success = 1;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -86,7 +76,6 @@ public class Job {
 
         Job job = (Job) o;
 
-        if (success != job.success) return false;
         if (!categoryId.equals(job.categoryId)) return false;
         if (!creationDate.equals(job.creationDate)) return false;
         if (!description.equals(job.description)) return false;
@@ -107,7 +96,6 @@ public class Job {
         result = 31 * result + description.hashCode();
         result = 31 * result + creationDate.hashCode();
         result = 31 * result + expirationDate.hashCode();
-        result = 31 * result + success;
         return result;
     }
 
@@ -119,9 +107,8 @@ public class Job {
                 ", userId='" + userId + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", creationDate=" + creationDate +
-                ", expirationDate=" + expirationDate +
-                ", success=" + success +
+                ", creationDate='" + creationDate + '\'' +
+                ", expirationDate='" + expirationDate + '\'' +
                 '}';
     }
 }

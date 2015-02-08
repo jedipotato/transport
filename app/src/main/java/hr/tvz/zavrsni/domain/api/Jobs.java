@@ -10,10 +10,9 @@ import hr.tvz.zavrsni.util.Const;
 /**
  * Created by Kristian on 7.2.2015..
  */
-public class Jobs {
+public class Jobs extends BasicModel {
 
     @SerializedName(Const.JOBS) private ArrayList<Job> jobsList;
-    @SerializedName(Const.SUCCESS) private int success;
 
     public ArrayList<Job> getJobsList() {
         return jobsList;
@@ -23,24 +22,15 @@ public class Jobs {
         this.jobsList = jobsList;
     }
 
-    public boolean isSuccess() {
-        return success == 1;
-
-    }
-
-    public void setSuccess(int success) {
-        this.success = success;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
 
-        Jobs that = (Jobs) o;
+        Jobs jobs = (Jobs) o;
 
-        if (success != that.success) return false;
-        if (jobsList != null ? !jobsList.equals(that.jobsList) : that.jobsList != null)
+        if (jobsList != null ? !jobsList.equals(jobs.jobsList) : jobs.jobsList != null)
             return false;
 
         return true;
@@ -48,8 +38,8 @@ public class Jobs {
 
     @Override
     public int hashCode() {
-        int result = jobsList != null ? jobsList.hashCode() : 0;
-        result = 31 * result + success;
+        int result = super.hashCode();
+        result = 31 * result + (jobsList != null ? jobsList.hashCode() : 0);
         return result;
     }
 
@@ -57,7 +47,6 @@ public class Jobs {
     public String toString() {
         return "Jobs{" +
                 "jobsList=" + jobsList +
-                ", success=" + success +
                 '}';
     }
 }
