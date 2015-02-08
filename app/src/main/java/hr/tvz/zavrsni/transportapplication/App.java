@@ -12,6 +12,7 @@ import hr.tvz.zavrsni.json.ApiCallables;
 import hr.tvz.zavrsni.json.ApiServices;
 import hr.tvz.zavrsni.json.TransportApiListener;
 import hr.tvz.zavrsni.util.Const;
+import hr.tvz.zavrsni.util.Crypt;
 import hr.tvz.zavrsni.util.TransportPreferences;
 import retrofit.Callback;
 import retrofit.RequestInterceptor;
@@ -118,7 +119,7 @@ public class App extends Application implements ApiCallables {
 
     @Override
     public void createUser(String name, String surname, String username, String password, String email) {
-        User user = new User(name, surname, username, password, email);
+        User user = new User(name, surname, username, Crypt.md5(password), email);
         mApiServices.putUser(user, new Callback<BasicModel>() {
             @Override
             public void success(BasicModel basicModel, Response response) {

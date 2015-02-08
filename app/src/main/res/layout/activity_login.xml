@@ -48,7 +48,8 @@
         android:layout_below="@+id/textPassword"
         android:paddingTop="15dp"
         android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"/>
+        android:layout_marginRight="25dp"
+        android:inputType="textPassword" />
     
     <Button
         android:id="@+id/buttonLogin"

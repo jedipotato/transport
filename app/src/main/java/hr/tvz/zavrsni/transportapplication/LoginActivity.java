@@ -1,17 +1,18 @@
 package hr.tvz.zavrsni.transportapplication;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import hr.tvz.zavrsni.domain.api.BasicModel;
+import hr.tvz.zavrsni.json.TransportApiListener;
 import hr.tvz.zavrsni.util.TransportPreferences;
 
 
-public class LoginActivity extends ActionBarActivity {
+public class LoginActivity extends TransportActivity implements TransportApiListener<BasicModel> {
 
     private EditText mEditTextUsername;
     private EditText mEditTextPassword;
@@ -59,5 +60,15 @@ public class LoginActivity extends ActionBarActivity {
     public void onClickRegistration(View view) {
         Intent i = new Intent(LoginActivity.this, RegistrationActivity.class);
         startActivity(i);
+    }
+
+    @Override
+    public void onApiResponse(BasicModel response) {
+
+    }
+
+    @Override
+    public void onApiFailure() {
+
     }
 }
