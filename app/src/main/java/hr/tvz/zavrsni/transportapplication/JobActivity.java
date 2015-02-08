@@ -1,6 +1,5 @@
 package hr.tvz.zavrsni.transportapplication;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -51,11 +50,11 @@ public class JobActivity extends ActionBarActivity implements TransportApiListen
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
-        } else if (id == R.id.action_home) {
+        /*} else if (id == R.id.action_home) {
             Toast.makeText(this, "Doma", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, MainActivity.class);
 //            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            startActivity(intent);*/
         }
 
 

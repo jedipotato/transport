@@ -30,5 +30,7 @@
     <string name="item_button_place_bid">Place bid!</string>
     <string name="item_edit_bid_hint">Enter your bid...</string>
     <string name="title_activity_item_list">ItemListActivity</string>
+    <string name="title_activity_my_jobs">MyJobsActivity</string>
+    <string name="registration_text_password">Password</string>
 
 </resources>

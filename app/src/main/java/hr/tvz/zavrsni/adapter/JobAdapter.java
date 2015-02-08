@@ -2,6 +2,7 @@ package hr.tvz.zavrsni.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class JobAdapter extends ArrayAdapter<Job> {
 
         Job job = getItem(position);
 
+        Log.d("JOB_ID", "jobId = " + job.getId());
         holder.jobId.setText(job.getId());
         holder.jobName.setText(job.getName());
 

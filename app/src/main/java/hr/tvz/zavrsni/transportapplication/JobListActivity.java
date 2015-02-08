@@ -93,6 +93,7 @@ public class JobListActivity extends ActionBarActivity implements TransportApiLi
             public void onItemClick(@NonNull AdapterView<?> parent, @NonNull View view, int position, long id) {
                 TextView idTextView = (TextView) view.findViewById(R.id.jobId);
                 Intent i = new Intent(JobListActivity.this, JobActivity.class);
+
                 i.putExtra("job_id", idTextView.getText().toString());
                 i.putExtra("category_id", mCategoryId);
                 Log.e("JobListActivity::job_id",idTextView.getText().toString());

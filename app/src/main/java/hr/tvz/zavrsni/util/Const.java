@@ -9,9 +9,12 @@ public interface Const {
     String API_CATEGORY = "/category/";
     String API_JOBS = "/category/{category_id}/jobs/";
     String API_JOB = "/category/{category_id}/jobs/{job_id}/";
+    String API_USER = "/user/";
 
     // JSON elements
     String SUCCESS = "success";
+    String MESSAGE = "message";
+
     //user table
     String USER_NAME = "name";
     String USER_SURNAME = "surname";

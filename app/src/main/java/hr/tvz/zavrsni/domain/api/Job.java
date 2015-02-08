@@ -2,21 +2,16 @@ package hr.tvz.zavrsni.domain.api;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
-
 import hr.tvz.zavrsni.util.Const;
 
-/**
- * Created by Kristian on 8.2.2015..
- */
 public class Job {
     @SerializedName(Const.JOB_ID) private String id;
     @SerializedName(Const.CATEGORY_ID) private String categoryId;
     @SerializedName(Const.USER_ID) private String userId;
     @SerializedName(Const.JOB_NAME) private String name;
     @SerializedName(Const.JOB_DESCRIPTION) private String description;
-    @SerializedName(Const.JOB_CREATION_DATE) private Date creationDate;
-    @SerializedName(Const.JOB_EXPIRATION_DATE) private Date expirationDate;
+    @SerializedName(Const.JOB_CREATION_DATE) private String creationDate;
+    @SerializedName(Const.JOB_EXPIRATION_DATE) private String expirationDate;
 
     @SerializedName(Const.SUCCESS) private int success;
 
@@ -60,28 +55,28 @@ public class Job {
         this.description = description;
     }
 
-    public Date getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 
-    public Date getExpirationDate() {
+    public String getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
     }
 
-    public int getSuccess() {
-        return success;
+    public boolean isSuccess() {
+        return success == 1;
     }
 
     public void setSuccess(int success) {
-        this.success = success;
+        this.success = 1;
     }
 
     @Override

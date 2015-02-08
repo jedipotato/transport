@@ -2,6 +2,8 @@ package hr.tvz.zavrsni.domain;
 
 import android.util.Log;
 
+import com.google.gson.annotations.SerializedName;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,18 +11,25 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Date;
 
+import hr.tvz.zavrsni.util.Const;
+
 public class Job {
-    private String id;
-    private String categoryId;
-    private String userId;
-    private String name;
-    private String description;
-    private Date creationDate;
-    private Date expirationDate;
+    @SerializedName(Const.JOB_ID) private String id;
+    @SerializedName(Const.CATEGORY_ID) private String categoryId;
+    @SerializedName(Const.USER_ID ) private String userId;
+    @SerializedName(Const.JOB_NAME) private String name;
+    @SerializedName(Const.JOB_DESCRIPTION) private String description;
+    @SerializedName(Const.JOB_CREATION_DATE) private Date creationDate;
+    @SerializedName(Const.JOB_EXPIRATION_DATE) private Date expirationDate;
 
+    @SerializedName(Const.SUCCESS) private int success;
 
-    public Job() {
+    public int getSuccess() {
+        return success;
+    }
 
+    public void isSuccess(int success) {
+        this.success = 1;
     }
 
     public Job(String id, String name) {

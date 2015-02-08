@@ -1,10 +1,14 @@
 package hr.tvz.zavrsni.transportapplication;
 
 import android.app.Application;
+import android.util.Log;
+
+import com.google.gson.Gson;
 
 import hr.tvz.zavrsni.domain.api.Categories;
 import hr.tvz.zavrsni.domain.api.Job;
 import hr.tvz.zavrsni.domain.api.Jobs;
+import hr.tvz.zavrsni.domain.api.User;
 import hr.tvz.zavrsni.json.ApiCallables;
 import hr.tvz.zavrsni.json.ApiServices;
 import hr.tvz.zavrsni.json.TransportApiListener;
@@ -53,7 +57,7 @@ public class App extends Application implements ApiCallables {
 
             @Override
             public void failure(RetrofitError error) {
-                // TODO implement logic for error handling; maybe forward to Activity to display on-screen error report?
+                Log.e("App.getAllCategories failed", error.toString());
             }
         });
     }
@@ -70,7 +74,7 @@ public class App extends Application implements ApiCallables {
 
             @Override
             public void failure(RetrofitError error) {
-
+                Log.e("App.getJobs failed", error.toString());
             }
         });
 
@@ -88,9 +92,17 @@ public class App extends Application implements ApiCallables {
 
             @Override
             public void failure(RetrofitError error) {
-
+                Log.e("App.getJobById failed", error.toString());
             }
         });
+    }
+
+    @Override
+    public void createUser(String name, String surname, String username, String password, String email) {
+        User user = new User(name, surname, username, password, email);
+        Gson gson = new Gson();
+        String jsonUser = gson.toJson(user); //TODO ovo radi i lijepo pretvori u json
+        mApiServices.putUser(jsonUser); 
     }
 
 
