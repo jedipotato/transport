@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,7 +21,7 @@ import hr.tvz.zavrsni.domain.api.Jobs;
 import hr.tvz.zavrsni.json.TransportApiListener;
 
 
-public class JobListActivity extends ActionBarActivity implements TransportApiListener<Jobs> {
+public class JobListActivity extends TransportActivity implements TransportApiListener<Jobs> {
     private ProgressDialog pDialog;
     private ArrayList<Job> jobList = new ArrayList<>();
     private String mCategoryId = new String();
@@ -101,6 +100,11 @@ public class JobListActivity extends ActionBarActivity implements TransportApiLi
                 startActivity(i);
             }
         });
+    }
+
+    @Override
+    public void onApiFailure() {
+        super.alert(R.string.api_alert_dialog_body);
     }
 
     /*class LoadAllJobs extends AsyncTask<String, Void, ArrayList<Job>> {

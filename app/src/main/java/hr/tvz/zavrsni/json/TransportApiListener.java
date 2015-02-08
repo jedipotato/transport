@@ -6,5 +6,6 @@ package hr.tvz.zavrsni.json;
 public interface TransportApiListener<T> {
 
     void onApiResponse(T response);
+    void onApiFailure();
 
 }

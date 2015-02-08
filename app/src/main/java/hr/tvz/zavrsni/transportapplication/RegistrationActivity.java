@@ -1,14 +1,16 @@
 package hr.tvz.zavrsni.transportapplication;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import hr.tvz.zavrsni.domain.api.BasicModel;
+import hr.tvz.zavrsni.json.TransportApiListener;
 
-public class RegistrationActivity extends ActionBarActivity {
+
+public class RegistrationActivity extends TransportActivity implements TransportApiListener<BasicModel> {
 
     private String mInputName;
     private String mInputSurname;
@@ -18,14 +20,47 @@ public class RegistrationActivity extends ActionBarActivity {
 
     private TextView mWarning;
 
+    private App mApp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+        mApp = (App) getApplication();
 
         mWarning = (TextView)findViewById(R.id.registerWarning);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mApp = null;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        mApp.setTransportApiListener(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        mApp.removeTransportApiListener();
+    }
+
+    @Override
+    protected void onDebugBuildOnly() {
+        super.onDebugBuildOnly();
+
+        ((TextView) findViewById(R.id.registerInputName)).setText("Pero");
+        ((TextView) findViewById(R.id.registerInputSurname)).setText("Kvrzica");
+        ((TextView) findViewById(R.id.registerInputUsername)).setText("ppero");
+        ((TextView) findViewById(R.id.registerInputEmail)).setText("email@gmail.com");
+        ((TextView) findViewById(R.id.registerInputPassword)).setText("123456");
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -77,7 +112,17 @@ public class RegistrationActivity extends ActionBarActivity {
             return;
         }
         //TODO
-        App app = (App) getApplication();
-        app.createUser(mInputName,mInputSurname,mInputUsername,mInputPassword,mInputEmail);
+        mApp.createUser(mInputName,mInputSurname,mInputUsername,mInputPassword,mInputEmail);
     }
+
+    @Override
+    public void onApiResponse(BasicModel response) {
+        // TODO display success message and / or switch to new activity
+    }
+
+    @Override
+    public void onApiFailure() {
+        super.alert(R.string.api_alert_dialog_body);
+    }
+
 }

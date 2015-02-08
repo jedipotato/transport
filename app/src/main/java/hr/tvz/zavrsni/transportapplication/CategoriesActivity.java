@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,7 +21,7 @@ import hr.tvz.zavrsni.domain.api.Categories;
 import hr.tvz.zavrsni.json.TransportApiListener;
 
 
-public class CategoriesActivity extends ActionBarActivity implements TransportApiListener<Categories> {
+public class CategoriesActivity extends TransportActivity implements TransportApiListener<Categories> {
 
     private ProgressDialog pDialog;
     private ArrayList<Category> categoryList = new ArrayList<>();
@@ -90,6 +89,11 @@ public class CategoriesActivity extends ActionBarActivity implements TransportAp
                 startActivity(i);
             }
         });
+    }
+
+    @Override
+    public void onApiFailure() {
+        super.alert(R.string.api_alert_dialog_body);
     }
 
     //    class LoadAllCategories extends AsyncTask<String, Void, ArrayList<Category>>{

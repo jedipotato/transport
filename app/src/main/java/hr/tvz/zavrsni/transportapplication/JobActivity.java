@@ -1,7 +1,6 @@
 package hr.tvz.zavrsni.transportapplication;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,7 +11,7 @@ import hr.tvz.zavrsni.domain.api.Job;
 import hr.tvz.zavrsni.json.TransportApiListener;
 
 
-public class JobActivity extends ActionBarActivity implements TransportApiListener<Job> {
+public class JobActivity extends TransportActivity implements TransportApiListener<Job> {
     private String mJobId = new String();
     private String mCategoryId = new String();
 
@@ -85,5 +84,10 @@ public class JobActivity extends ActionBarActivity implements TransportApiListen
 
         textName.setText(response.getName());
         textDescription.setText(response.getDescription());
+    }
+
+    @Override
+    public void onApiFailure() {
+        super.alert(R.string.api_alert_dialog_body);
     }
 }

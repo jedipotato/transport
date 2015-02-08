@@ -32,5 +32,7 @@
     <string name="title_activity_item_list">ItemListActivity</string>
     <string name="title_activity_my_jobs">MyJobsActivity</string>
     <string name="registration_text_password">Password</string>
+    <string name="api_alert_dialog_title">Warning!</string>
+    <string name="api_alert_dialog_body">There was an issue with receiving data from server. This is commonly related to your network connection. Please check that you have access to the Internet.</string>
 
 </resources>

@@ -58,6 +58,9 @@ public class App extends Application implements ApiCallables {
             @Override
             public void failure(RetrofitError error) {
                 Log.e("App.getAllCategories failed", error.toString());
+                if (mTransportApiListener != null) {
+                    mTransportApiListener.onApiFailure();
+                }
             }
         });
     }
@@ -75,6 +78,9 @@ public class App extends Application implements ApiCallables {
             @Override
             public void failure(RetrofitError error) {
                 Log.e("App.getJobs failed", error.toString());
+                if (mTransportApiListener != null) {
+                    mTransportApiListener.onApiFailure();
+                }
             }
         });
 
@@ -93,6 +99,9 @@ public class App extends Application implements ApiCallables {
             @Override
             public void failure(RetrofitError error) {
                 Log.e("App.getJobById failed", error.toString());
+                if (mTransportApiListener != null) {
+                    mTransportApiListener.onApiFailure();
+                }
             }
         });
     }
@@ -110,7 +119,9 @@ public class App extends Application implements ApiCallables {
 
             @Override
             public void failure(RetrofitError error) {
-
+                if (mTransportApiListener != null) {
+                    mTransportApiListener.onApiFailure();
+                }
             }
         });
     }
