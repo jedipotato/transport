@@ -27,6 +27,6 @@ public interface ApiServices {
     @GET(Const.API_JOB)
     void getJobById(@Path("job_id") String jobId, @Path("category_id") String categoryId, Callback<Job> result);
 
-    @PUT(Const.API_USER + "peder")
+    @PUT(Const.API_USER)
     void putUser(@Body User jsonUser, Callback<BasicModel> callback);
 }
