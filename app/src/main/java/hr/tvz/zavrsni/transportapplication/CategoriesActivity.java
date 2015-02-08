@@ -86,8 +86,6 @@ public class CategoriesActivity extends ActionBarActivity implements TransportAp
                 Intent i = new Intent(CategoriesActivity.this, JobListActivity.class);
                 i.putExtra("category_id", idTextView.getText().toString());
 
-                    /*CategoryAdapter adapter = (CategoryAdapter) parent.getAdapter();
-                    adapter.getItem(position).getId();*/
                 startActivity(i);
             }
         });

@@ -3,6 +3,7 @@ package hr.tvz.zavrsni.transportapplication;
 import android.app.Application;
 
 import hr.tvz.zavrsni.domain.api.Categories;
+import hr.tvz.zavrsni.domain.api.Jobs;
 import hr.tvz.zavrsni.json.ApiCallables;
 import hr.tvz.zavrsni.json.ApiServices;
 import hr.tvz.zavrsni.json.TransportApiListener;
@@ -40,7 +41,7 @@ public class App extends Application implements ApiCallables {
     }
 
     @Override
-    public void getCategories() {
+     public void getCategories() {
         mApiServices.getAllCategories(new Callback<Categories>() {
             @Override
             public void success(Categories categories, Response response) {
@@ -55,4 +56,24 @@ public class App extends Application implements ApiCallables {
             }
         });
     }
+
+    @Override
+    public void getJobs() {
+        mApiServices.getJobsByCategory(new Callback<Jobs>() {
+            @Override
+            public void success(Jobs jobs, Response response) {
+                if (mTransportApiListener != null) {
+                    mTransportApiListener.onApiResponse(jobs);
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+
+    }
+
+
 }

@@ -2,11 +2,9 @@ package hr.tvz.zavrsni.transportapplication;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,17 +13,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 import hr.tvz.zavrsni.adapter.JobAdapter;
 import hr.tvz.zavrsni.domain.Job;
-import hr.tvz.zavrsni.json.JSONParser;
+import hr.tvz.zavrsni.domain.api.Jobs;
+import hr.tvz.zavrsni.json.TransportApiListener;
 
 
-public class JobListActivity extends ActionBarActivity {
+public class JobListActivity extends ActionBarActivity implements TransportApiListener<Jobs> {
     public ProgressDialog pDialog;
     public ArrayList<Job> jobList = new ArrayList<>();
 
@@ -33,9 +29,8 @@ public class JobListActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_list);
-        Intent i = getIntent();
-        String[] paramsAsync = { i.getStringExtra("category_id")};
-        new LoadAllJobs().execute(paramsAsync);
+
+
     }
 
 
@@ -61,7 +56,42 @@ public class JobListActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    class LoadAllJobs extends AsyncTask<String, Void, ArrayList<Job>> {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        App app = (App) getApplication();
+        app.setTransportApiListener(this);
+
+        app.getJobs();
+        Toast.makeText(getApplicationContext(), "Loading jobs...", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        App app = (App) getApplication();
+        app.removeTransportApiListener();
+    }
+
+    @Override
+    public void onApiResponse(Jobs response) {
+        ListView listView = (ListView) findViewById(R.id.categoryList);
+        JobAdapter adapter = new JobAdapter(getApplicationContext(), new ArrayList<>(response.getJobsList()));
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull AdapterView<?> parent, @NonNull View view, int position, long id) {
+                TextView idTextView = (TextView) view.findViewById(R.id.categoryId);
+                Intent i = new Intent(JobListActivity.this, JobActivity.class);
+                i.putExtra("job_id",idTextView.getText().toString());
+
+                startActivity(i);
+            }
+        });
+    }
+
+    /*class LoadAllJobs extends AsyncTask<String, Void, ArrayList<Job>> {
 
         @Override
         protected void onPreExecute() {
@@ -69,9 +99,6 @@ public class JobListActivity extends ActionBarActivity {
             Toast.makeText(getApplicationContext(),"Loading jobs...",Toast.LENGTH_SHORT).show();
         }
 
-        /**
-         * Pozadinsko učitavanje kategorija
-         **/
         @Override
         protected ArrayList<Job> doInBackground(@NonNull String... params) {
             try {
@@ -111,5 +138,5 @@ public class JobListActivity extends ActionBarActivity {
                 }
             });
         }
-    }
+    }*/
 }
