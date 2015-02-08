@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,15 +23,17 @@ import hr.tvz.zavrsni.json.TransportApiListener;
 
 
 public class JobListActivity extends ActionBarActivity implements TransportApiListener<Jobs> {
-    public ProgressDialog pDialog;
-    public ArrayList<Job> jobList = new ArrayList<>();
+    private ProgressDialog pDialog;
+    private ArrayList<Job> jobList = new ArrayList<>();
+    private String mCategoryId = new String();
+    private String mJobId = new String();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_list);
 
-
+        mCategoryId = getIntent().getStringExtra("category_id");
     }
 
 
@@ -62,7 +65,7 @@ public class JobListActivity extends ActionBarActivity implements TransportApiLi
         App app = (App) getApplication();
         app.setTransportApiListener(this);
 
-        app.getJobs();
+        app.getJobs(mCategoryId);
         Toast.makeText(getApplicationContext(), "Loading jobs...", Toast.LENGTH_SHORT).show();
     }
 
@@ -75,17 +78,19 @@ public class JobListActivity extends ActionBarActivity implements TransportApiLi
 
     @Override
     public void onApiResponse(Jobs response) {
-        ListView listView = (ListView) findViewById(R.id.categoryList);
+        ListView listView = (ListView) findViewById(R.id.jobList);
         JobAdapter adapter = new JobAdapter(getApplicationContext(), new ArrayList<>(response.getJobsList()));
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull AdapterView<?> parent, @NonNull View view, int position, long id) {
-                TextView idTextView = (TextView) view.findViewById(R.id.categoryId);
+                TextView idTextView = (TextView) view.findViewById(R.id.jobId);
                 Intent i = new Intent(JobListActivity.this, JobActivity.class);
-                i.putExtra("job_id",idTextView.getText().toString());
-
+                i.putExtra("job_id", idTextView.getText().toString());
+                i.putExtra("category_id", mCategoryId);
+                Log.e("JobListActivity::job_id",idTextView.getText().toString());
+                Log.e("JobListActivity::category_id",mCategoryId);
                 startActivity(i);
             }
         });

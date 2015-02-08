@@ -2,7 +2,7 @@ package hr.tvz.zavrsni.domain.api;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import hr.tvz.zavrsni.domain.Category;
 import hr.tvz.zavrsni.util.Const;
@@ -12,14 +12,14 @@ import hr.tvz.zavrsni.util.Const;
  */
 public class Categories {
 
-    @SerializedName(Const.CATEGORIES) private List<Category> categoriesList;
+    @SerializedName(Const.CATEGORIES) private ArrayList<Category> categoriesList;
     @SerializedName(Const.SUCCESS) private int success;
 
-    public List<Category> getCategoriesList() {
+    public ArrayList<Category> getCategoriesList() {
         return categoriesList;
     }
 
-    public void setCategoriesList(List<Category> categoriesList) {
+    public void setCategoriesList(ArrayList<Category> categoriesList) {
         this.categoriesList = categoriesList;
     }
 

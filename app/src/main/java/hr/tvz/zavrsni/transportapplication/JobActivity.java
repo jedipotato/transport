@@ -1,19 +1,30 @@
 package hr.tvz.zavrsni.transportapplication;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import hr.tvz.zavrsni.domain.api.Job;
+import hr.tvz.zavrsni.json.TransportApiListener;
 
-public class JobActivity extends ActionBarActivity {
+
+public class JobActivity extends ActionBarActivity implements TransportApiListener<Job> {
+    private String mJobId = new String();
+    private String mCategoryId = new String();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job);
+
+        mJobId = getIntent().getStringExtra("job_id");
+        mCategoryId = getIntent().getStringExtra("category_id");
+
     }
 
 
@@ -43,5 +54,31 @@ public class JobActivity extends ActionBarActivity {
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        App app = (App) getApplication();
+        app.setTransportApiListener(this);
+
+        app.getJob(mJobId,mCategoryId);
+        Toast.makeText(getApplicationContext(),"Loading job...", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        App app = (App) getApplication();
+        app.removeTransportApiListener();
+    }
+
+    @Override
+    public void onApiResponse(Job response) {
+        TextView textName = (TextView)findViewById(R.id.textJobName);
+        TextView textDescription = (TextView)findViewById(R.id.textJobDescription);
+
+        textName.setText(response.getName());
+        textDescription.setText(response.getDescription());
     }
 }

@@ -1,10 +1,12 @@
 package hr.tvz.zavrsni.json;
 
 import hr.tvz.zavrsni.domain.api.Categories;
+import hr.tvz.zavrsni.domain.api.Job;
 import hr.tvz.zavrsni.domain.api.Jobs;
 import hr.tvz.zavrsni.util.Const;
 import retrofit.Callback;
 import retrofit.http.GET;
+import retrofit.http.Path;
 
 /**
  * Defines API services which are to be used with Retrofit.
@@ -16,6 +18,9 @@ public interface ApiServices {
     void getAllCategories(Callback<Categories> result);
 
     @GET(Const.API_JOBS)
-    void getJobsByCategory(Callback<Jobs> result);
+    void getJobsByCategory(@Path("category_id") String id, Callback<Jobs> result);
+
+    @GET(Const.API_JOB)
+    void getJobById(@Path("job_id") String categoryId, @Path("category_id") String jobId, Callback<Job> result);
 
 }

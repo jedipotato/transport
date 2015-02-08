@@ -7,8 +7,8 @@ public interface Const {
     String URL_BASE = "http://markovicdev.io";
 
     String API_CATEGORY = "/category/";
-    //String API_JOBS = "/category/{id}/jobs/";
-    String API_JOBS = "/category/1/jobs/";
+    String API_JOBS = "/category/{category_id}/jobs/";
+    String API_JOB = "/category/{category_id}/jobs/{job_id}/";
 
     // JSON elements
     String SUCCESS = "success";

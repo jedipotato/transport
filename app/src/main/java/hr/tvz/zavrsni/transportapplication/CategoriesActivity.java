@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,8 +24,8 @@ import hr.tvz.zavrsni.json.TransportApiListener;
 
 public class CategoriesActivity extends ActionBarActivity implements TransportApiListener<Categories> {
 
-    public ProgressDialog pDialog;
-    public ArrayList<Category> categoryList = new ArrayList<>();
+    private ProgressDialog pDialog;
+    private ArrayList<Category> categoryList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +86,7 @@ public class CategoriesActivity extends ActionBarActivity implements TransportAp
                 TextView idTextView = (TextView) view.findViewById(R.id.categoryId);
                 Intent i = new Intent(CategoriesActivity.this, JobListActivity.class);
                 i.putExtra("category_id", idTextView.getText().toString());
-
+                Log.e("CategoryActivity::category_id",idTextView.getText().toString());
                 startActivity(i);
             }
         });

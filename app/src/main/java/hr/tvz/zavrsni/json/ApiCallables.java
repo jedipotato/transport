@@ -5,5 +5,6 @@ package hr.tvz.zavrsni.json;
  */
 public interface ApiCallables {
     void getCategories();
-    void getJobs();
+    void getJobs(String id);
+    void getJob(String jobId, String categoryId);
 }
