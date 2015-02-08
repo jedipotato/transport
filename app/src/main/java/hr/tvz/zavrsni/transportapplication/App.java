@@ -25,7 +25,7 @@ import retrofit.client.Response;
 public class App extends Application implements ApiCallables {
 
     private ApiServices mApiServices;
-    private TransportApiListener mTransportApiListener;
+    private TransportApiListener<BasicModel> mTransportApiListener;
 
     @Override
     public void onCreate() {
@@ -67,7 +67,7 @@ public class App extends Application implements ApiCallables {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e("App.getAllCategories failed", error.toString());
+                Log.e("App.getAllCategories", "failed wuth message: " + error.toString());
                 if (mTransportApiListener != null) {
                     mTransportApiListener.onApiFailure();
                 }

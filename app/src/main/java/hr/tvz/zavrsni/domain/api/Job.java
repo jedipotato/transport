@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import hr.tvz.zavrsni.util.Const;
 
-public class Job {
+public class Job extends BasicModel {
     @SerializedName(Const.JOB_ID) private String id;
     @SerializedName(Const.CATEGORY_ID) private String categoryId;
     @SerializedName(Const.USER_ID) private String userId;
