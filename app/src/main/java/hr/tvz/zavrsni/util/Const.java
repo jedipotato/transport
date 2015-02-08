@@ -11,6 +11,10 @@ public interface Const {
     String API_JOB = "/category/{category_id}/jobs/{job_id}/";
     String API_USER = "/user/";
 
+    // request header
+    String USERNAME = "username";
+    String PASSWORD = "password";
+
     // JSON elements
     String SUCCESS = "success";
     String MESSAGE = "message";

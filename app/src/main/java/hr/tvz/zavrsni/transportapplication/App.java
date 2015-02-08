@@ -13,7 +13,9 @@ import hr.tvz.zavrsni.json.ApiCallables;
 import hr.tvz.zavrsni.json.ApiServices;
 import hr.tvz.zavrsni.json.TransportApiListener;
 import hr.tvz.zavrsni.util.Const;
+import hr.tvz.zavrsni.util.TransportPreferences;
 import retrofit.Callback;
+import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -30,9 +32,18 @@ public class App extends Application implements ApiCallables {
     public void onCreate() {
         super.onCreate();
 
+        RequestInterceptor requestInterceptor = new RequestInterceptor() {
+            @Override
+            public void intercept(RequestFacade request) {
+                TransportPreferences prefs = new TransportPreferences(getApplicationContext());
+                request.addHeader(Const.USER_NAME, prefs.getUsername());
+                request.addHeader(Const.PASSWORD, prefs.getPassword());
+            }
+        };
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint(Const.URL_BASE)
                 .setLogLevel(BuildConfig.DEBUG ? RestAdapter.LogLevel.FULL : RestAdapter.LogLevel.NONE)
+                .setRequestInterceptor(requestInterceptor)
                 .build();
         mApiServices = restAdapter.create(ApiServices.class);
     }
