@@ -2,7 +2,6 @@ package hr.tvz.zavrsni.transportapplication;
 
 import android.app.Application;
 import android.util.Log;
-import android.widget.Toast;
 
 import hr.tvz.zavrsni.domain.api.BasicModel;
 import hr.tvz.zavrsni.domain.api.Categories;
@@ -120,12 +119,12 @@ public class App extends Application implements ApiCallables {
     @Override
     public void createUser(String name, String surname, String username, String password, String email) {
         User user = new User(name, surname, username, password, email);
-//        Gson gson = new Gson();
-//        String jsonUser = gson.toJson(user); //TODO ovo radi i lijepo pretvori u json
         mApiServices.putUser(user, new Callback<BasicModel>() {
             @Override
             public void success(BasicModel basicModel, Response response) {
-                Toast.makeText(getApplicationContext(), "Success PUT", Toast.LENGTH_SHORT).show();
+                if (mTransportApiListener != null) {
+                    mTransportApiListener.onApiResponse(basicModel);
+                }
             }
 
             @Override

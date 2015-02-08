@@ -5,9 +5,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import hr.tvz.zavrsni.domain.api.BasicModel;
 import hr.tvz.zavrsni.json.TransportApiListener;
+import hr.tvz.zavrsni.util.TransportPreferences;
 
 
 public class RegistrationActivity extends TransportActivity implements TransportApiListener<BasicModel> {
@@ -117,7 +119,15 @@ public class RegistrationActivity extends TransportActivity implements Transport
 
     @Override
     public void onApiResponse(BasicModel response) {
-        // TODO display success message and / or switch to new activity
+        if (!response.isSuccess()) {
+            alert(response.getMessage());
+        } else {
+            TransportPreferences prefs = new TransportPreferences(this);
+            prefs.saveUsername(mInputUsername);
+            prefs.savePassword(mInputPassword);
+            Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
     @Override
