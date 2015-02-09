@@ -19,7 +19,7 @@
 
     <EditText
         android:id="@+id/registerInputName"
-        android:inputType="text"
+        android:inputType="textPersonName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/abc_primary_text_material_dark"
@@ -42,7 +42,7 @@
 
     <EditText
         android:id="@+id/registerInputSurname"
-        android:inputType="textPassword"
+        android:inputType="textPersonName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/abc_primary_text_material_dark"
@@ -65,7 +65,7 @@
 
     <EditText
         android:id="@+id/registerInputUsername"
-        android:inputType="text"
+        android:inputType="textNoSuggestions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/abc_primary_text_material_dark"
