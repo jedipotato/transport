@@ -76,6 +76,8 @@ public class CategoriesActivity extends TransportActivity implements TransportAp
 
     @Override
     public void onApiResponse(Categories response) {
+        if (!checkUserAuthenticationResponseAndReset(response)) return;
+
         ListView listView = (ListView) findViewById(R.id.categoryList);
         CategoryAdapter adapter = new CategoryAdapter(getApplicationContext(), new ArrayList<>(response.getCategoriesList()));
         listView.setAdapter(adapter);

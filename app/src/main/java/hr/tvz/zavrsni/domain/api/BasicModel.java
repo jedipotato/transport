@@ -16,6 +16,10 @@ public class BasicModel {
         return success == 1;
     }
 
+    public int getSuccess() {
+        return success;
+    }
+
     public String getMessage() {
         return message;
     }

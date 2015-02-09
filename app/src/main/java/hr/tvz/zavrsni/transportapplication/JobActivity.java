@@ -80,6 +80,8 @@ public class JobActivity extends TransportActivity implements TransportApiListen
 
     @Override
     public void onApiResponse(Job response) {
+        if (!checkUserAuthenticationResponseAndReset(response)) return;
+
         TextView textName = (TextView)findViewById(R.id.textJobName);
         TextView textDescription = (TextView)findViewById(R.id.textJobDescription);
 

@@ -16,6 +16,14 @@ public class TransportPreferences {
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
+    public void clearLoginInfo() {
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.remove(PREFERENCE_USERNAME);
+        editor.remove(PREFERENCE_PASSWORD);
+        editor.remove(PREFERENCE_AUTO_LOGIN);
+        editor.apply();
+    }
+
     public void saveUsername(String username) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putString(PREFERENCE_USERNAME, username);

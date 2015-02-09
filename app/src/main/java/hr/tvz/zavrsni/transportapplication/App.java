@@ -34,7 +34,7 @@ public class App extends Application implements ApiCallables {
             @Override
             public void intercept(RequestFacade request) {
                 TransportPreferences prefs = new TransportPreferences(getApplicationContext());
-                request.addHeader(Const.USER_USERNAME, prefs.getUsername());
+                request.addHeader(Const.USERNAME, prefs.getUsername());
                 request.addHeader(Const.PASSWORD,
                         /* password has to be encrypted */ Crypt.md5(prefs.getPassword()));
             }
@@ -76,7 +76,6 @@ public class App extends Application implements ApiCallables {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e("App.getAllCategories", "failed with message: " + error.toString());
                 if (mTransportApiListener != null) {
                     mTransportApiListener.onApiFailure(null);
                 }

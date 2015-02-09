@@ -84,6 +84,8 @@ public class JobListActivity extends TransportActivity implements TransportApiLi
 
     @Override
     public void onApiResponse(Jobs response) {
+        if (!checkUserAuthenticationResponseAndReset(response)) return;
+
         ListView listView = (ListView) findViewById(R.id.jobList);
         JobAdapter adapter = new JobAdapter(getApplicationContext(), new ArrayList<>(response.getJobsList()));
         listView.setAdapter(adapter);

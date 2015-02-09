@@ -16,6 +16,9 @@ public interface Const {
     String USERNAME = "username";
     String PASSWORD = "password";
 
+    // response code
+    int ERROR_AUTH = -5;
+
     // JSON elements
     String SUCCESS = "success";
     String MESSAGE = "message";

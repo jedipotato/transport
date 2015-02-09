@@ -2,9 +2,14 @@ package hr.tvz.zavrsni.transportapplication;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v7.app.ActionBarActivity;
+
+import hr.tvz.zavrsni.domain.api.BasicModel;
+import hr.tvz.zavrsni.util.Const;
+import hr.tvz.zavrsni.util.TransportPreferences;
 
 /**
  * Abstract activity which holds a common code for other activities.
@@ -56,6 +61,28 @@ public abstract class TransportActivity extends ActionBarActivity {
      */
     protected void onDebugBuildOnly() {
         // pass implementation
+    }
+
+    /**
+     * Checks for a proper user authentication in a given model. If user is not properly
+     * authenticated, Activity calls for a reset and launches
+     * {@link hr.tvz.zavrsni.transportapplication.LoginActivity}. All login information
+     * about login is deleted from SharedPreferences.
+     * @param basicModel response object from API which <b>should</b> contain a success field
+     * @return false only if user is <b>not</b> authenticated, ignores any other error and returns true
+     */
+    protected boolean checkUserAuthenticationResponseAndReset(BasicModel basicModel) {
+        if (Const.ERROR_AUTH == basicModel.getSuccess()) {
+            TransportPreferences prefs = new TransportPreferences(this);
+            prefs.clearLoginInfo();
+
+            Intent resetAndLoginIntent = new Intent(this, LoginActivity.class);
+            resetAndLoginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(resetAndLoginIntent);
+            finish();
+            return false;
+        }
+        return true;
     }
 
 }
