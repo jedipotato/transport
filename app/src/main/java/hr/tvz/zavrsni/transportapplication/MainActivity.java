@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import hr.tvz.zavrsni.util.TransportPreferences;
+
 
 public class MainActivity extends ActionBarActivity {
 
@@ -42,5 +44,14 @@ public class MainActivity extends ActionBarActivity {
     public void onClickCategories(View view) {
         Intent intent = new Intent(this, CategoriesActivity.class);
         startActivity(intent);
+    }
+
+    public void onClickLogout(View view) {
+        TransportPreferences prefs = new TransportPreferences(this);
+        prefs.saveAutoLogin(false);
+        finish();
+        Intent login = new Intent(this, LoginActivity.class);
+        login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(login);
     }
 }

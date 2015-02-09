@@ -128,7 +128,7 @@ public class App extends Application implements ApiCallables {
     @Override
     public void createUser(String name, String surname, String username, String password, String email) {
         User user = new User(name, surname, username, Crypt.md5(password), email);
-        apiServiceAdapter().putUser(user, new Callback<BasicModel>() {
+        mLoginService.putUser(user, new Callback<BasicModel>() {
             @Override
             public void success(BasicModel basicModel, Response response) {
                 if (mTransportApiListener != null) {

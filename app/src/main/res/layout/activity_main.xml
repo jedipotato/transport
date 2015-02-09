@@ -83,7 +83,8 @@
             android:text="@string/main_button_logout"
             android:gravity="bottom|center"
             android:background="@drawable/abc_ic_clear_mtrl_alpha"
-            android:textColor="@color/abc_primary_text_material_dark"/>
+            android:textColor="@color/abc_primary_text_material_dark"
+            android:onClick="onClickLogout"/>
 
         </LinearLayout>
 
