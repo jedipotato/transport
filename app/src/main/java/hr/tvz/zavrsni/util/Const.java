@@ -10,6 +10,7 @@ public interface Const {
     String API_JOBS = "/category/{category_id}/jobs/";
     String API_JOB = "/category/{category_id}/jobs/{job_id}/";
     String API_USER = "/user/";
+    String API_LOGIN = "/login/";
 
     // request header
     String USERNAME = "username";

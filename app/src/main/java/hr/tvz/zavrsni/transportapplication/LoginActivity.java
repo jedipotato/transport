@@ -2,6 +2,7 @@ package hr.tvz.zavrsni.transportapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,8 @@ public class LoginActivity extends TransportActivity implements TransportApiList
     private EditText mEditTextUsername;
     private EditText mEditTextPassword;
 
+    private App mApp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,15 +27,45 @@ public class LoginActivity extends TransportActivity implements TransportApiList
 
         mEditTextUsername = (EditText) findViewById(R.id.inputUsername);
         mEditTextPassword = (EditText) findViewById(R.id.inputPassword);
+
+        mApp = (App) getApplication();
+
+        findViewById(R.id.buttonLogin).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(@NonNull View v) {
+                onClickLogin(v);
+            }
+        });
+
+        TransportPreferences prefs = new TransportPreferences(this);
+        if (prefs.getAutoLogin()) {
+            loginSuccess();
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
+        mApp.setTransportApiListener(this);
+
         TransportPreferences prefs = new TransportPreferences(this);
         mEditTextUsername.setText(prefs.getUsername());
         mEditTextPassword.setText(prefs.getPassword());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mApp.removeTransportApiListener();
+    }
+
+    @Override
+    protected void onDebugBuildOnly() {
+        super.onDebugBuildOnly();
+
+        mEditTextUsername.setText("ppero");
+        mEditTextPassword.setText("123456");
     }
 
     @Override
@@ -62,13 +95,52 @@ public class LoginActivity extends TransportActivity implements TransportApiList
         startActivity(i);
     }
 
+    public void onClickLogin(View view) {
+        mEditTextUsername.setError(null);
+        mEditTextPassword.setError(null);
+
+        String username = mEditTextUsername.getText().toString();
+        String password = mEditTextPassword.getText().toString();
+
+        boolean isOk = true;
+        if (username.length() < 1 || username.length() > 12) {
+            mEditTextUsername.setError("Username input error");
+            isOk = false;
+        }
+        if (password.length() < 4 || password.length() > 30) {
+            mEditTextPassword.setError("Password minimum is 4 characters!");
+            isOk = false;
+        }
+
+        if (!isOk) return;
+
+        mApp.login(username, password);
+    }
+
+    private void loginSuccess() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
     @Override
     public void onApiResponse(BasicModel response) {
-
+        if (response.isSuccess()) {
+            TransportPreferences prefs = new TransportPreferences(this);
+            if (prefs.getUsername().equals(mEditTextUsername.getText().toString())) {
+                prefs.saveUsername(mEditTextUsername.getText().toString());
+            }
+            if (prefs.getUsername().equals(mEditTextPassword.getText().toString())) {
+                prefs.savePassword(mEditTextPassword.getText().toString());
+            }
+            prefs.saveAutoLogin(true);
+            loginSuccess();
+        } else {
+            super.alert(response.getMessage());
+        }
     }
 
     @Override
     public void onApiFailure() {
-
+        super.alert(R.string.api_alert_dialog_body);
     }
 }

@@ -9,4 +9,5 @@ public interface ApiCallables {
     void getJob(String jobId, String categoryId);
 
     void createUser(String name, String surname, String username, String password, String email);
+    void login(String username, String password);
 }
