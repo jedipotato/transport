@@ -38,7 +38,8 @@
             android:text="@string/main_button_profile"
             android:gravity="bottom|center"
             android:background="@drawable/abc_ic_menu_share_mtrl_alpha"
-            android:textColor="@color/abc_primary_text_material_dark"/>
+            android:textColor="@color/abc_primary_text_material_dark"
+            android:onClick="onClickProfile"/>
 
         <Button
             style="?android:attr/borderlessButtonStyle"

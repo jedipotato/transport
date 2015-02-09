@@ -126,7 +126,21 @@ public class App extends Application implements ApiCallables {
 
     @Override
     public void getUser() {
-        throw new RuntimeException("Not implemented!");
+        apiServiceAdapter().getUser(new Callback<User>() {
+            @Override
+            public void success(User user, Response response) {
+                if (mTransportApiListener != null) {
+                    mTransportApiListener.onApiResponse(user);
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                if (mTransportApiListener != null) {
+                    mTransportApiListener.onApiFailure(null);
+                }
+            }
+        });
     }
 
     @Override

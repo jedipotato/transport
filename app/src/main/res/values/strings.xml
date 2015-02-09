@@ -20,6 +20,7 @@
     <string name="registration_text_username">Username</string>
     <string name="registration_text_email">e-mail</string>
     <string name="register_button_register">Submit</string>
+    <string name="profile_button_update">Update profile</string>
     <string name="title_activity_categories">CategoriesActivity</string>
     <string name="main_button_categories">Categories</string>
     <string name="title_activity_item">ItemActivity</string>
@@ -28,10 +29,12 @@
     <string name="item_text_bid_value">DEFAULT</string>
     <string name="item_text_description">DEFAULT DESCRIPTION</string>
     <string name="item_button_place_bid">Place bid!</string>
-    <string name="item_edit_bid_hint">Enter your bid...</string>
+    <string name="item_edit_bid_hint">Enter your bid…</string>
     <string name="title_activity_item_list">ItemListActivity</string>
     <string name="title_activity_my_jobs">MyJobsActivity</string>
     <string name="registration_text_password">Password</string>
+    <string name="profile_text_new_password">New password</string>
+    <string name="profile_text_repeat_new_password">Repeat new password</string>
     <string name="api_alert_dialog_title">Warning!</string>
     <string name="api_alert_dialog_body">There was an issue with receiving data from server. This is commonly related to your network connection. Please check that you have access to the Internet.</string>
 

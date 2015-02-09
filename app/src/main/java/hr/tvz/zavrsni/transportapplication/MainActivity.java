@@ -54,4 +54,8 @@ public class MainActivity extends ActionBarActivity {
         login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(login);
     }
+
+    public void onClickProfile(View view) {
+        startActivity(new Intent(this, ProfileActivity.class));
+    }
 }
