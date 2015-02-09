@@ -8,6 +8,6 @@ import hr.tvz.zavrsni.domain.api.BasicModel;
 public interface TransportApiListener<T extends BasicModel> {
 
     void onApiResponse(T response);
-    void onApiFailure();
+    void onApiFailure(String message);
 
 }

@@ -3,6 +3,7 @@ package hr.tvz.zavrsni.transportapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -140,7 +141,7 @@ public class LoginActivity extends TransportActivity implements TransportApiList
     }
 
     @Override
-    public void onApiFailure() {
-        super.alert(R.string.api_alert_dialog_body);
+    public void onApiFailure(String message) {
+        super.alert(TextUtils.isEmpty(message) ? getString(R.string.api_alert_dialog_body) : message);
     }
 }

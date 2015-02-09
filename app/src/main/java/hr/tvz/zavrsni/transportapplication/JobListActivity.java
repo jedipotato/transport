@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -103,8 +104,8 @@ public class JobListActivity extends TransportActivity implements TransportApiLi
     }
 
     @Override
-    public void onApiFailure() {
-        super.alert(R.string.api_alert_dialog_body);
+    public void onApiFailure(String message) {
+        super.alert(TextUtils.isEmpty(message) ? getString(R.string.api_alert_dialog_body) : message);
     }
 
     /*class LoadAllJobs extends AsyncTask<String, Void, ArrayList<Job>> {
