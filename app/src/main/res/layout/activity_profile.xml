@@ -10,10 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:paddingBottom="24dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="24dp"
-        android:paddingBottom="24dp">
+        android:paddingTop="24dp">
 
         <TextView
             android:id="@+id/profileTextName"
@@ -32,9 +32,9 @@
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             android:layout_marginTop="8dp"
+            android:enabled="false"
             android:gravity="center"
             android:inputType="textPersonName"
-            android:enabled="false"
             android:textColor="@color/abc_primary_text_material_dark" />
 
         <TextView
@@ -54,9 +54,9 @@
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             android:layout_marginTop="8dp"
+            android:enabled="false"
             android:gravity="center"
             android:inputType="textPersonName"
-            android:enabled="false"
             android:textColor="@color/abc_primary_text_material_dark" />
 
         <TextView
@@ -76,8 +76,8 @@
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             android:layout_marginTop="8dp"
-            android:gravity="center"
             android:enabled="false"
+            android:gravity="center"
             android:inputType="textNoSuggestions"
             android:textColor="@color/abc_primary_text_material_dark" />
 
@@ -111,19 +111,23 @@
             android:gravity="center"
             android:text="@string/registration_text_password"
             android:textColor="@color/abc_primary_text_material_dark"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
         <EditText
             android:id="@+id/profileInputPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
-            android:enabled="false"
             android:layout_marginRight="25dp"
             android:layout_marginTop="8dp"
+            android:enabled="false"
             android:gravity="center"
             android:inputType="textPassword"
-            android:textColor="@color/abc_primary_text_material_dark" />
+            android:textColor="@color/abc_primary_text_material_dark"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/profileTextNewPassword"
@@ -133,7 +137,9 @@
             android:gravity="center"
             android:text="@string/profile_text_new_password"
             android:textColor="@color/abc_primary_text_material_dark"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
         <EditText
             android:id="@+id/profileInputNewPassword"
@@ -145,7 +151,9 @@
             android:enabled="false"
             android:gravity="center"
             android:inputType="textPassword"
-            android:textColor="@color/abc_primary_text_material_dark" />
+            android:textColor="@color/abc_primary_text_material_dark"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/profileTextRepeatNewPassword"
@@ -155,7 +163,9 @@
             android:gravity="center"
             android:text="@string/profile_text_repeat_new_password"
             android:textColor="@color/abc_primary_text_material_dark"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
         <EditText
             android:id="@+id/profileInputRepeatNewPassword"
@@ -167,7 +177,9 @@
             android:enabled="false"
             android:gravity="center"
             android:inputType="textPassword"
-            android:textColor="@color/abc_primary_text_material_dark" />
+            android:textColor="@color/abc_primary_text_material_dark"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
         <Button
             android:id="@+id/profileButtonSubmit"
@@ -178,7 +190,7 @@
             android:background="@drawable/buttonshape"
             android:gravity="center"
             android:onClick="onClickUpdate"
-            android:text="@string/profile_button_update"
+            android:text="@string/profile_button_edit"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
