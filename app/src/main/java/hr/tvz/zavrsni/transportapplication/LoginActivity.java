@@ -126,10 +126,10 @@ public class LoginActivity extends TransportActivity implements TransportApiList
     public void onApiResponse(BasicModel response) {
         if (response.isSuccess()) {
             TransportPreferences prefs = new TransportPreferences(this);
-            if (prefs.getUsername().equals(mEditTextUsername.getText().toString())) {
+            if (!prefs.getUsername().equals(mEditTextUsername.getText().toString())) {
                 prefs.saveUsername(mEditTextUsername.getText().toString());
             }
-            if (prefs.getUsername().equals(mEditTextPassword.getText().toString())) {
+            if (!prefs.getUsername().equals(mEditTextPassword.getText().toString())) {
                 prefs.savePassword(mEditTextPassword.getText().toString());
             }
             prefs.saveAutoLogin(true);
