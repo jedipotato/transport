@@ -125,6 +125,16 @@ public class App extends Application implements ApiCallables {
     }
 
     @Override
+    public void getUser() {
+        throw new RuntimeException("Not implemented!");
+    }
+
+    @Override
+    public void updateUser(String name, String surname, String username, String email, String password) {
+        throw new RuntimeException("Not implemented!");
+    }
+
+    @Override
     public void createUser(String name, String surname, String username, String password, String email) {
         User user = new User(name, surname, username, Crypt.md5(password), email);
         mLoginService.putUser(user, new Callback<BasicModel>() {
