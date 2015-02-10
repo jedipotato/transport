@@ -145,7 +145,22 @@ public class App extends Application implements ApiCallables {
 
     @Override
     public void updateUser(String name, String surname, String username, String email, String password) {
-        throw new RuntimeException("Not implemented!");
+        User user = new User(name, surname, username, password != null ? Crypt.md5(password) : null, email);
+        apiServiceAdapter().updateUser(user, new Callback<BasicModel>() {
+            @Override
+            public void success(BasicModel basicModel, Response response) {
+                if (mTransportApiListener != null) {
+                    mTransportApiListener.onApiResponse(basicModel);
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                if (mTransportApiListener != null) {
+                    mTransportApiListener.onApiFailure(null);
+                }
+            }
+        });
     }
 
     @Override

@@ -2,13 +2,16 @@ package hr.tvz.zavrsni.transportapplication;
 
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import hr.tvz.zavrsni.domain.api.BasicModel;
 import hr.tvz.zavrsni.domain.api.User;
 import hr.tvz.zavrsni.json.TransportApiListener;
+import hr.tvz.zavrsni.util.TransportPreferences;
 
 public class ProfileActivity extends TransportActivity {
 
@@ -22,6 +25,7 @@ public class ProfileActivity extends TransportActivity {
     private TextView mTextViewPassword;
     private TextView mTextViewNewPassword;
     private TextView mTextViewRepeatNewPassword;
+    private Button mButtonUpdateProfile;
 
     private App mApp;
     private User mUser;
@@ -31,8 +35,10 @@ public class ProfileActivity extends TransportActivity {
         @Override
         public void onApiResponse(User response) {
             mApp.removeTransportApiListener();
+            if (!checkUserAuthenticationResponseAndReset(response)) return;
 
             if (response.isSuccess()) {
+                mUser = response;
                 fillForm(response);
             }
         }
@@ -40,17 +46,30 @@ public class ProfileActivity extends TransportActivity {
         @Override
         public void onApiFailure(String message) {
             mApp.removeTransportApiListener();
+            alert(TextUtils.isEmpty(message) ? getString(R.string.api_alert_dialog_body) : message);
         }
     };
     private TransportApiListener<BasicModel> mUpdateProfileApiListener = new TransportApiListener<BasicModel>() {
         @Override
         public void onApiResponse(BasicModel response) {
             mApp.removeTransportApiListener();
+            if (!checkUserAuthenticationResponseAndReset(response)) return;
+
+            if (response.isSuccess()) {
+                if (!TextUtils.isEmpty(mEditTextNewPassword.getText().toString())) {
+                    TransportPreferences prefs = new TransportPreferences(ProfileActivity.this);
+                    prefs.savePassword(mEditTextNewPassword.getText().toString());
+                }
+
+                mIsInEditMode = false;
+                switchMode(false);
+            }
         }
 
         @Override
         public void onApiFailure(String message) {
             mApp.removeTransportApiListener();
+            alert(TextUtils.isEmpty(message) ? getString(R.string.api_alert_dialog_body) : message);
         }
     };
 
@@ -75,6 +94,68 @@ public class ProfileActivity extends TransportActivity {
         mTextViewPassword.setVisibility(isEditMode ? View.VISIBLE : View.GONE);
         mTextViewNewPassword.setVisibility(isEditMode ? View.VISIBLE : View.GONE);
         mTextViewRepeatNewPassword.setVisibility(isEditMode ? View.VISIBLE : View.GONE);
+
+        if (isEditMode) {
+            mButtonUpdateProfile.setText(getString(R.string.profile_button_update));
+        } else {
+            mButtonUpdateProfile.setText(getString(R.string.profile_button_edit));
+        }
+    }
+
+    private boolean formValidation() {
+        mEditTextName.setError(null);
+        mEditTextSurname.setError(null);
+        mEditTextUsername.setError(null);
+        mEditTextEmail.setError(null);
+        mEditTextPassword.setError(null);
+        mEditTextNewPassword.setError(null);
+        mEditTextRepeatNewPassword.setError(null);
+
+        boolean isOK = true;
+        String name = mEditTextName.getText().toString();
+        if (name.length() < 1 || name.length() > 30) {
+            isOK = false;
+            mEditTextName.setError("Name input error!");
+        }
+        String surname = mEditTextSurname.getText().toString();
+        if (surname.length() < 1 || surname.length() > 30) {
+            isOK = false;
+            mEditTextSurname.setError("Last name input error!");
+        }
+        String username = mEditTextUsername.getText().toString();
+        if (username.length() < 1 || username.length() > 12) {
+            isOK = false;
+            mEditTextUsername.setError("Username input error!");
+        }
+        String email = mEditTextEmail.getText().toString();
+        if (email.length() < 2 || email.length() > 40) {
+            isOK = false;
+            mEditTextEmail.setError("E-mail input error!");
+        }
+
+        TransportPreferences prefs = new TransportPreferences(this);
+        String password = prefs.getPassword();
+        String inputPassword = mEditTextPassword.getText().toString();
+        if (inputPassword.length() > 0 && !password.equals(inputPassword)) {
+            isOK = false;
+            mEditTextPassword.setError("Password is not correct!");
+        }
+        String newPassword = mEditTextNewPassword.getText().toString();
+        if (inputPassword.length() > 0 && (newPassword.length() < 4 || newPassword.length() > 30)) {
+            isOK = false;
+            mEditTextNewPassword.setError("Password minimum is 4 characters!");
+        }
+        if (inputPassword.length() > 0 && newPassword.equals(password)) {
+            isOK = false;
+            mEditTextNewPassword.setError("New password must not be the same as old one.");
+        }
+        String repeatNewPassword = mEditTextRepeatNewPassword.getText().toString();
+        if (inputPassword.length() > 0 && !repeatNewPassword.equals(newPassword)) {
+            isOK = false;
+            mEditTextRepeatNewPassword.setError("Repeated password has to be the same!");
+        }
+
+        return isOK;
     }
 
     @Override
@@ -94,6 +175,7 @@ public class ProfileActivity extends TransportActivity {
         mTextViewPassword = (TextView) findViewById(R.id.profileTextPassword);
         mTextViewNewPassword = (TextView) findViewById(R.id.profileTextNewPassword);
         mTextViewRepeatNewPassword = (TextView) findViewById(R.id.profileTextRepeatNewPassword);
+        mButtonUpdateProfile = (Button) findViewById(R.id.profileButtonSubmit);
     }
 
     @Override
@@ -109,7 +191,33 @@ public class ProfileActivity extends TransportActivity {
             mIsInEditMode = true;
             switchMode(true);
         } else {
-            //TODO api
+            if (formValidation()) {
+                mApp.setTransportApiListener(mUpdateProfileApiListener);
+
+                String name = "";
+                if (!mUser.getName().equals(mEditTextName.getText().toString())) {
+                    name = mEditTextName.getText().toString();
+                }
+                String surname = "";
+                if (!mUser.getSurname().equals(mEditTextSurname.getText().toString())) {
+                    surname = mEditTextSurname.getText().toString();
+                }
+                String username = "";
+                if (!mUser.getUsername().equals(mEditTextUsername.getText().toString())) {
+                    username = mEditTextUsername.getText().toString();
+                }
+                String email = "";
+                if (!mUser.getEmail().equals(mEditTextEmail.getText().toString())) {
+                    email = mEditTextEmail.getText().toString();
+                }
+                String password = mEditTextNewPassword.getText().toString();
+
+                mApp.updateUser(TextUtils.isEmpty(name) ? null : name,
+                        TextUtils.isEmpty(surname) ? null : surname,
+                        TextUtils.isEmpty(username) ? null : username,
+                        TextUtils.isEmpty(email) ? null : email,
+                        TextUtils.isEmpty(password) ? null : password);
+            }
         }
     }
 
