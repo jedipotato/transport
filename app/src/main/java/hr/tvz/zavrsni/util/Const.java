@@ -9,6 +9,7 @@ public interface Const {
     String API_CATEGORY = "/category/";
     String API_JOBS = "/category/{category_id}/jobs/";
     String API_JOB = "/category/{category_id}/jobs/{job_id}/";
+    String API_BIDS = "/category/{category_id}/jobs/{job_id}/bids/";
     String API_USER = "/user/";
     String API_LOGIN = "/login/";
 
@@ -45,4 +46,10 @@ public interface Const {
     String JOB_CREATION_DATE = "creation_date";
     String JOB_EXPIRATION_DATE = "expiration_date";
 
+    //bids table
+    String BIDS = "bids";
+    String BID_ID = "bid_id";
+    String BID_BID = "bid";
+    String BID_DESCRIPTION = "description";
+    String BID_CREATION_DATE = "creation_date";
 }
