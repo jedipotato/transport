@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-import hr.tvz.zavrsni.domain.Job;
 import hr.tvz.zavrsni.util.Const;
 
 /**

@@ -11,6 +11,7 @@ public interface Const {
     String API_JOB = "/category/{category_id}/jobs/{job_id}/";
     String API_BIDS = "/category/{category_id}/jobs/{job_id}/bids/";
     String API_USER = "/user/";
+    String API_USER_JOBS = "/user/jobs/";
     String API_LOGIN = "/login/";
 
     // request header

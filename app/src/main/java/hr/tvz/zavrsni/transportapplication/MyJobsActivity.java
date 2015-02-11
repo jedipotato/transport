@@ -1,12 +1,26 @@
 package hr.tvz.zavrsni.transportapplication;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+import hr.tvz.zavrsni.adapter.JobAdapter;
+import hr.tvz.zavrsni.domain.api.Jobs;
+import hr.tvz.zavrsni.json.TransportApiListener;
 
 
-public class MyJobsActivity extends ActionBarActivity {
+public class MyJobsActivity extends TransportActivity implements TransportApiListener<Jobs> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,5 +49,51 @@ public class MyJobsActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        App app = (App) getApplication();
+        app.removeTransportApiListener();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        App app = (App) getApplication();
+        app.setTransportApiListener(this);
+
+        app.getJobsByUser();
+        Toast.makeText(getApplicationContext(), "Loading jobs...", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onApiResponse(Jobs response) {
+        if (!checkUserAuthenticationResponseAndReset(response)) return;
+
+        ListView listView = (ListView) findViewById(R.id.jobList);
+        JobAdapter adapter = new JobAdapter(getApplicationContext(), new ArrayList<>(response.getJobsList()));
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull AdapterView<?> parent, @NonNull View view, int position, long id) {
+                TextView idJobTextView = (TextView) view.findViewById(R.id.jobId);
+                TextView idCategoryTextView = (TextView) view.findViewById(R.id.categoryId);
+                Intent i = new Intent(MyJobsActivity.this, JobActivity.class);
+
+                i.putExtra("job_id", idJobTextView.getText().toString());
+                i.putExtra("category_id", idCategoryTextView.getText().toString());
+                Log.e("JobListActivity::job_id", idJobTextView.getText().toString());
+                Log.e("JobListActivity::category_id",idCategoryTextView.getText().toString());
+                startActivity(i);
+            }
+        });
+    }
+
+    @Override
+    public void onApiFailure(String message) {
+        super.alert(TextUtils.isEmpty(message) ? getString(R.string.api_alert_dialog_body) : message);
     }
 }

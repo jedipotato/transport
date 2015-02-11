@@ -74,7 +74,8 @@
             android:text="@string/main_button_my_job"
             android:gravity="bottom|center"
             android:background="@drawable/abc_ic_menu_selectall_mtrl_alpha"
-            android:textColor="@color/abc_primary_text_material_dark"/>
+            android:textColor="@color/abc_primary_text_material_dark"
+            android:onClick="onClickMyJobs"/>
 
         <Button
             style="?android:attr/borderlessButtonStyle"

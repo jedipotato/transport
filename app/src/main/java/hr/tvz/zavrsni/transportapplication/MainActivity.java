@@ -58,4 +58,8 @@ public class MainActivity extends ActionBarActivity {
     public void onClickProfile(View view) {
         startActivity(new Intent(this, ProfileActivity.class));
     }
+
+    public void onClickMyJobs(View view) {
+        startActivity(new Intent(this, MyJobsActivity.class));
+    }
 }

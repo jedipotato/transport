@@ -27,6 +27,9 @@ public interface ApiServices {
     @GET(Const.API_JOB)
     void getJobById(@Path("job_id") String jobId, @Path("category_id") String categoryId, Callback<Job> result);
 
+    @GET(Const.API_USER_JOBS)
+    void getJobsByUser(Callback<Jobs> result);
+
     @GET(Const.API_USER)
     void getUser(Callback<User> result);
 

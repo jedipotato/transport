@@ -17,7 +17,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import hr.tvz.zavrsni.adapter.JobAdapter;
-import hr.tvz.zavrsni.domain.Job;
+import hr.tvz.zavrsni.domain.api.Job;
 import hr.tvz.zavrsni.domain.api.Jobs;
 import hr.tvz.zavrsni.json.TransportApiListener;
 

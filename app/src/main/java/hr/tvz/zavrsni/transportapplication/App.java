@@ -125,6 +125,26 @@ public class App extends Application implements ApiCallables {
     }
 
     @Override
+    public void getJobsByUser() {
+        apiServiceAdapter().getJobsByUser(new Callback<Jobs>() {
+            @Override
+            public void success(Jobs jobs, Response response) {
+                if (mTransportApiListener != null) {
+                    mTransportApiListener.onApiResponse(jobs);
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e("App.getJobsByUser failed", error.toString());
+                if (mTransportApiListener != null) {
+                    mTransportApiListener.onApiFailure(null);
+                }
+            }
+        });
+    }
+
+    @Override
     public void getUser() {
         apiServiceAdapter().getUser(new Callback<User>() {
             @Override

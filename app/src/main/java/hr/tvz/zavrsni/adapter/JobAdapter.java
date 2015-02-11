@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import hr.tvz.zavrsni.domain.Job;
+import hr.tvz.zavrsni.domain.api.Job;
 import hr.tvz.zavrsni.transportapplication.R;
 
 public class JobAdapter extends ArrayAdapter<Job> {
@@ -35,6 +35,7 @@ public class JobAdapter extends ArrayAdapter<Job> {
 
         Log.d("JOB_ID", "jobId = " + job.getId());
         holder.jobId.setText(job.getId());
+        holder.categoryId.setText(job.getCategoryId());
         holder.jobName.setText(job.getName());
 
         return convertView;
@@ -42,10 +43,12 @@ public class JobAdapter extends ArrayAdapter<Job> {
 
     static class ViewHolder {
         TextView jobId;
+        TextView categoryId;
         TextView jobName;
 
         ViewHolder(View convertView){
             jobId = (TextView)convertView.findViewById(R.id.jobId);
+            categoryId = (TextView)convertView.findViewById(R.id.categoryId);
             jobName = (TextView)convertView.findViewById(R.id.jobName);
         }
     }
