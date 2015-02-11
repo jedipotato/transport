@@ -12,10 +12,11 @@ import java.util.List;
 import hr.tvz.zavrsni.domain.api.Bid;
 import hr.tvz.zavrsni.transportapplication.R;
 
-
-public class BidAdapter extends ArrayAdapter<Bid> {
-
-    public BidAdapter(Context context, List<Bid> bidList) {
+/**
+ * Created by Kristian on 11.2.2015..
+ */
+public class BidAdapterUser extends ArrayAdapter<Bid> {
+    public BidAdapterUser(Context context, List<Bid> bidList) {
         super(context, 0, bidList);
     }
 
@@ -23,7 +24,7 @@ public class BidAdapter extends ArrayAdapter<Bid> {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if(convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_bids, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_user_bids, parent, false);
             holder=new ViewHolder(convertView);
             convertView.setTag(holder);
         } else {
@@ -32,8 +33,9 @@ public class BidAdapter extends ArrayAdapter<Bid> {
 
         Bid bid = getItem(position);
 
-        holder.jobId.setText(bid.getId());
-        holder.bidValue.setText(bid.getBid() + " KN");
+        holder.jobId.setText(bid.getJobId() + " KN");
+        holder.bidValue.setText(bid.getBid());
+        holder.jobName.setText(bid.getJobName());
 
         return convertView;
     }
@@ -41,10 +43,12 @@ public class BidAdapter extends ArrayAdapter<Bid> {
     static class ViewHolder {
         TextView jobId;
         TextView bidValue;
+        TextView jobName;
 
         ViewHolder(View convertView){
             jobId = (TextView)convertView.findViewById(R.id.jobId);
             bidValue = (TextView)convertView.findViewById(R.id.bidValue);
+            jobName = (TextView)convertView.findViewById(R.id.jobName);
         }
     }
 }

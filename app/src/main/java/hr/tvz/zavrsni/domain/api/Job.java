@@ -12,6 +12,10 @@ public class Job extends BasicModel {
     @SerializedName(Const.JOB_DESCRIPTION) private String description;
     @SerializedName(Const.JOB_CREATION_DATE) private String creationDate;
     @SerializedName(Const.JOB_EXPIRATION_DATE) private String expirationDate;
+    @SerializedName(Const.JOB_LOWEST_BID) private String lowestBid;
+    @SerializedName(Const.JOB_LOWEST_USER) private String lowestUsers;
+
+    @SerializedName(Const.IS_USER) private boolean isUser;
 
     public String getId() {
         return id;
@@ -67,6 +71,30 @@ public class Job extends BasicModel {
 
     public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
+    }
+
+    public boolean isUser() {
+        return isUser;
+    }
+
+    public String getLowestBid() {
+        return lowestBid;
+    }
+
+    public void setLowestBid(String lowestBid) {
+        this.lowestBid = lowestBid;
+    }
+
+    public String getLowestUsers() {
+        return lowestUsers;
+    }
+
+    public void setLowestUsers(String lowestUsers) {
+        this.lowestUsers = lowestUsers;
+    }
+
+    public void setUser(boolean isUser) {
+        this.isUser = isUser;
     }
 
     @Override

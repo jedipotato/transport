@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import hr.tvz.zavrsni.domain.api.BasicModel;
+import hr.tvz.zavrsni.domain.api.Bids;
 import hr.tvz.zavrsni.domain.api.Categories;
 import hr.tvz.zavrsni.domain.api.Job;
 import hr.tvz.zavrsni.domain.api.Jobs;
@@ -125,6 +126,26 @@ public class App extends Application implements ApiCallables {
     }
 
     @Override
+    public void getJobById(String jobId) {
+        apiServiceAdapter().getJobByJobId(jobId, new Callback<Job>() {
+            @Override
+            public void success(Job job, Response response) {
+                if (mTransportApiListener != null) {
+                    mTransportApiListener.onApiResponse(job);
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e("App.getJobByJobId failed", error.toString());
+                if (mTransportApiListener != null) {
+                    mTransportApiListener.onApiFailure(null);
+                }
+            }
+        });
+    }
+
+    @Override
     public void getJobsByUser() {
         apiServiceAdapter().getJobsByUser(new Callback<Jobs>() {
             @Override
@@ -171,6 +192,44 @@ public class App extends Application implements ApiCallables {
             public void success(BasicModel basicModel, Response response) {
                 if (mTransportApiListener != null) {
                     mTransportApiListener.onApiResponse(basicModel);
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                if (mTransportApiListener != null) {
+                    mTransportApiListener.onApiFailure(null);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void getBidsByUser() {
+        apiServiceAdapter().getBidsByUser(new Callback<Bids>() {
+            @Override
+            public void success(Bids bids, Response response) {
+                if(mTransportApiListener != null){
+                    mTransportApiListener.onApiResponse(bids);
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                if (mTransportApiListener != null) {
+                    mTransportApiListener.onApiFailure(null);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void getBidsByJob(String jobId) {
+        apiServiceAdapter().getBidsByJob(jobId, new Callback<Bids>() {
+            @Override
+            public void success(Bids bids, Response response) {
+                if (mTransportApiListener != null) {
+                    mTransportApiListener.onApiResponse(bids);
                 }
             }
 

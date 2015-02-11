@@ -7,22 +7,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import hr.tvz.zavrsni.util.TransportPreferences;
 
-
-public class MainActivity extends ActionBarActivity {
+public class JobsBidsActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_jobs_bids);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_jobs_bids, menu);
         return true;
     }
 
@@ -41,25 +39,11 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onClickCategories(View view) {
-        Intent intent = new Intent(this, CategoriesActivity.class);
-        startActivity(intent);
+    public void onClickJobs(View view) {
+        startActivity(new Intent(this, MyJobsActivity.class));
     }
 
-    public void onClickLogout(View view) {
-        TransportPreferences prefs = new TransportPreferences(this);
-        prefs.saveAutoLogin(false);
-        finish();
-        Intent login = new Intent(this, LoginActivity.class);
-        login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(login);
-    }
-
-    public void onClickProfile(View view) {
-        startActivity(new Intent(this, ProfileActivity.class));
-    }
-
-    public void onClickMyJobs(View view) {
-        startActivity(new Intent(this, JobsBidsActivity.class));
+    public void onClickBids(View view) {
+        startActivity(new Intent(this, MyBidsActivity.class));
     }
 }

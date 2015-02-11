@@ -38,5 +38,11 @@
     <string name="profile_text_repeat_new_password">Repeat new password</string>
     <string name="api_alert_dialog_title">Warning!</string>
     <string name="api_alert_dialog_body">There was an issue with receiving data from server. This is commonly related to your network connection. Please check that you have access to the Internet.</string>
+    <string name="title_activity_jobs_bids">JobsBidsActivity</string>
+    <string name="title_activity_my_bids">MyBidsActivity</string>
+    <string name="my_jobs">My Jobs</string>
+    <string name="my_bids">My Bids</string>
+    <string name="item_button_current_bids">View Current Bids</string>
+    <string name="title_activity_bids_list">BidsListActivity</string>
 
 </resources>

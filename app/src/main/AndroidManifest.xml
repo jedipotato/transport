@@ -19,6 +19,7 @@
             android:label="@string/title_activity_login" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -42,8 +43,19 @@
             android:name=".MyJobsActivity"
             android:label="@string/title_activity_my_jobs" >
         </activity>
+        <activity android:name=".ProfileActivity" />
         <activity
-            android:name=".ProfileActivity"/>
+            android:name=".JobsBidsActivity"
+            android:label="@string/title_activity_jobs_bids" >
+        </activity>
+        <activity
+            android:name=".MyBidsActivity"
+            android:label="@string/title_activity_my_bids" >
+        </activity>
+        <activity
+            android:name=".BidsListActivity"
+            android:label="@string/title_activity_bids_list" >
+        </activity>
     </application>
 
 </manifest>

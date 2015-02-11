@@ -51,6 +51,22 @@
     <Button
         android:layout_width="100sp"
         android:layout_height="50sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/buttonshape"
+        android:id="@+id/buttonCurrentBids"
+        android:text="@string/item_button_current_bids"
+        android:layout_below="@+id/textJobDescription"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"
+        android:onClick="onClickCurrentBids"
+        />
+
+    <Button
+        android:layout_width="100sp"
+        android:layout_height="50sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/buttonshape"
         android:id="@+id/buttonJobPlaceBid"
         android:text="@string/item_button_place_bid"
         android:layout_below="@+id/textJobDescription"

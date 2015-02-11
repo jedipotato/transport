@@ -11,6 +11,9 @@ public class Bid extends BasicModel {
     @SerializedName(Const.BID_BID) private String bid;
     @SerializedName(Const.BID_DESCRIPTION) private String description;
     @SerializedName(Const.BID_CREATION_DATE) private String creationDate;
+    @SerializedName("job_name") private String jobName;
+
+    @SerializedName(Const.IS_USER) private boolean isUser;
 
     public String getId() {
         return id;
@@ -58,6 +61,22 @@ public class Bid extends BasicModel {
 
     public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public boolean isUser() {
+        return isUser;
+    }
+
+    public void setUser(boolean isUser) {
+        this.isUser = isUser;
+    }
+
+    public String getJobName() {
+        return jobName;
+    }
+
+    public void setJobName(String jobName) {
+        this.jobName = jobName;
     }
 
     @Override

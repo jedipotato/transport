@@ -7,9 +7,12 @@ public interface ApiCallables {
     void getCategories();
     void getJobs(String id);
     void getJob(String jobId, String categoryId);
+    void getJobById(String jobId);
     void getJobsByUser();
     void getUser();
     void updateUser(String name, String surname, String username, String email, String password);
+    void getBidsByUser();
+    void getBidsByJob(String jobId);
 
     void createUser(String name, String surname, String username, String password, String email);
     void login(String username, String password);

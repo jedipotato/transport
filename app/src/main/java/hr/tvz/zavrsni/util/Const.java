@@ -8,10 +8,12 @@ public interface Const {
 
     String API_CATEGORY = "/category/";
     String API_JOBS = "/category/{category_id}/jobs/";
-    String API_JOB = "/category/{category_id}/jobs/{job_id}/";
+    String API_JOB_BY_CATEGORY = "/category/{category_id}/jobs/{job_id}/";
+    String API_JOB = "/category/jobs/{job_id}/";
     String API_BIDS = "/category/{category_id}/jobs/{job_id}/bids/";
     String API_USER = "/user/";
     String API_USER_JOBS = "/user/jobs/";
+    String API_USER_BIDS = "/user/bids/";
     String API_LOGIN = "/login/";
 
     // request header
@@ -24,6 +26,7 @@ public interface Const {
     // JSON elements
     String SUCCESS = "success";
     String MESSAGE = "message";
+    String IS_USER = "is_user"; //true/false
 
     //user table
     String USER_NAME = "name";
@@ -46,6 +49,8 @@ public interface Const {
     String JOB_DESCRIPTION = "description";
     String JOB_CREATION_DATE = "creation_date";
     String JOB_EXPIRATION_DATE = "expiration_date";
+    String JOB_LOWEST_BID = "lowest_bid";
+    String JOB_LOWEST_USER = "lowest_user";
 
     //bids table
     String BIDS = "bids";

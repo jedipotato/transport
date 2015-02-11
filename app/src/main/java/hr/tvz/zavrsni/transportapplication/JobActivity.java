@@ -1,10 +1,13 @@
 package hr.tvz.zavrsni.transportapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,13 +25,19 @@ public class JobActivity extends TransportActivity implements TransportApiListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job);
 
-        if(getIntent().hasExtra("category_id") && getIntent().hasExtra("job_id")) {
-            mJobId = getIntent().getStringExtra("job_id");
+        if(getIntent().hasExtra("category_id")) {
             mCategoryId = getIntent().getStringExtra("category_id");
         }
-        else {
-            Log.e("JobActivity::category_id | job_id", mCategoryId + " | " + mJobId);
+        else{
+            mCategoryId = null;
         }
+        if(getIntent().hasExtra("job_id")) {
+            mJobId = getIntent().getStringExtra("job_id");
+        }
+        else{
+            mJobId = null;
+        }
+
 
     }
 
@@ -67,7 +76,13 @@ public class JobActivity extends TransportActivity implements TransportApiListen
         App app = (App) getApplication();
         app.setTransportApiListener(this);
 
-        app.getJob(mJobId,mCategoryId);
+        if(mCategoryId != null){
+            app.getJob(mJobId,mCategoryId);
+        }
+        else{
+            app.getJobById(mJobId);
+        }
+
         Toast.makeText(getApplicationContext(),"Loading job...", Toast.LENGTH_SHORT).show();
     }
 
@@ -82,15 +97,33 @@ public class JobActivity extends TransportActivity implements TransportApiListen
     public void onApiResponse(Job response) {
         if (!checkUserAuthenticationResponseAndReset(response)) return;
 
+        TextView jobLowestBid = (TextView)findViewById(R.id.textJobBidValue);
         TextView textName = (TextView)findViewById(R.id.textJobName);
         TextView textDescription = (TextView)findViewById(R.id.textJobDescription);
 
+        jobLowestBid.setText(response.getLowestBid() + " KN");
         textName.setText(response.getName());
         textDescription.setText(response.getDescription());
+
+        Button buttonBid = (Button) findViewById(R.id.buttonJobPlaceBid);
+        EditText editBid = (EditText) findViewById(R.id.editJobBid);
+        Button buttonCurrentBids = (Button) findViewById(R.id.buttonCurrentBids);
+
+        if(response.isUser()){
+            buttonBid.setVisibility(View.GONE);
+            editBid.setVisibility(View.GONE);
+            buttonCurrentBids.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void onApiFailure(String message) {
         super.alert(TextUtils.isEmpty(message) ? getString(R.string.api_alert_dialog_body) : message);
+    }
+
+    public void onClickCurrentBids(View view) {
+        Intent i = new Intent(JobActivity.this, BidsListActivity.class);
+        i.putExtra("job_id", mJobId);
+        startActivity(i);
     }
 }
