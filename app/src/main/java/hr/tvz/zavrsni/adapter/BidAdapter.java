@@ -34,6 +34,7 @@ public class BidAdapter extends ArrayAdapter<Bid> {
 
         holder.jobId.setText(bid.getId());
         holder.bidValue.setText(bid.getBid() + " KN");
+        holder.bidUsername.setText(bid.getUsername());
 
         return convertView;
     }
@@ -41,10 +42,12 @@ public class BidAdapter extends ArrayAdapter<Bid> {
     static class ViewHolder {
         TextView jobId;
         TextView bidValue;
+        TextView bidUsername;
 
         ViewHolder(View convertView){
             jobId = (TextView)convertView.findViewById(R.id.jobId);
             bidValue = (TextView)convertView.findViewById(R.id.bidValue);
+            bidUsername = (TextView)convertView.findViewById(R.id.bidUsername);
         }
     }
 }

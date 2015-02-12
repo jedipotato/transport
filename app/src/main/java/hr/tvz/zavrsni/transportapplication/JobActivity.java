@@ -6,8 +6,6 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +16,8 @@ import hr.tvz.zavrsni.json.TransportApiListener;
 public class JobActivity extends TransportActivity implements TransportApiListener<Job> {
     private String mJobId = new String();
     private String mCategoryId = new String();
+    private boolean mIsUser;
+    private String mUserId = new String();
 
 
     @Override
@@ -100,20 +100,17 @@ public class JobActivity extends TransportActivity implements TransportApiListen
         TextView jobLowestBid = (TextView)findViewById(R.id.textJobBidValue);
         TextView textName = (TextView)findViewById(R.id.textJobName);
         TextView textDescription = (TextView)findViewById(R.id.textJobDescription);
+        TextView textExpirationDate = (TextView)findViewById(R.id.textJobExpirationDateValue);
 
         jobLowestBid.setText(response.getLowestBid() + " KN");
         textName.setText(response.getName());
         textDescription.setText(response.getDescription());
+        textExpirationDate.setText(response.getExpirationDate());
 
-        Button buttonBid = (Button) findViewById(R.id.buttonJobPlaceBid);
-        EditText editBid = (EditText) findViewById(R.id.editJobBid);
-        Button buttonCurrentBids = (Button) findViewById(R.id.buttonCurrentBids);
+        mIsUser = response.isUser();
+        mUserId = response.getUserId();
+        //Button buttonCurrentBids = (Button) findViewById(R.id.buttonCurrentBids);
 
-        if(response.isUser()){
-            buttonBid.setVisibility(View.GONE);
-            editBid.setVisibility(View.GONE);
-            buttonCurrentBids.setVisibility(View.VISIBLE);
-        }
     }
 
     @Override
@@ -123,7 +120,10 @@ public class JobActivity extends TransportActivity implements TransportApiListen
 
     public void onClickCurrentBids(View view) {
         Intent i = new Intent(JobActivity.this, BidsListActivity.class);
+        i.putExtra("is_user", mIsUser);
         i.putExtra("job_id", mJobId);
+        i.putExtra("user_id", mUserId);
+        i.putExtra("category_id", mCategoryId);
         startActivity(i);
     }
 }

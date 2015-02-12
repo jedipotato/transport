@@ -1,6 +1,7 @@
 package hr.tvz.zavrsni.json;
 
 import hr.tvz.zavrsni.domain.api.BasicModel;
+import hr.tvz.zavrsni.domain.api.Bid;
 import hr.tvz.zavrsni.domain.api.Bids;
 import hr.tvz.zavrsni.domain.api.Categories;
 import hr.tvz.zavrsni.domain.api.Job;
@@ -38,12 +39,15 @@ public interface ApiServices {
     void getUser(Callback<User> result);
 
     @GET(Const.API_BIDS)
-    void getBidsByJob(@Path("job_id") String jobId, Callback<Bids> result);
+    void getBidsByJob(@Path("job_id") String jobId, @Path("category_id") String categoryId, Callback<Bids> result);
 
     @GET(Const.API_USER_BIDS)
     void getBidsByUser(Callback<Bids> result);
 
     @POST(Const.API_USER)
     void updateUser(@Body User user, Callback<BasicModel> result);
+
+    @POST(Const.API_BIDS)
+    void postBid(@Body Bid bid, @Path("job_id") String jobId, @Path("category_id") String categoryId, Callback<Bids> result);
 
 }

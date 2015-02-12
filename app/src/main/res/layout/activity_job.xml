@@ -38,18 +38,38 @@
         android:layout_toEndOf="@+id/textJobBid"/>
 
     <TextView
+        android:layout_width="200sp"
+        android:layout_height="50sp"
+        android:id="@+id/textJobExpirationDate"
+        android:text="@string/item_text_expiration_date"
+        android:gravity="center_vertical"
+        android:textColor="#FFFFFF"
+        android:layout_below="@+id/textJobBidValue"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:layout_width="150sp"
+        android:layout_height="50sp"
+        android:id="@+id/textJobExpirationDateValue"
+        android:text="DEFAULT"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:layout_below="@+id/textJobBidValue"
+        android:layout_toRightOf="@+id/textJobExpirationDate"/>
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="200sp"
+        android:layout_height="300sp"
         android:id="@+id/textJobDescription"
         android:text="@string/item_text_description"
         android:gravity="fill_horizontal"
         android:textColor="#FFFFFF"
-        android:layout_below="@+id/textJobBid"
+        android:layout_below="@+id/textJobExpirationDateValue"
         android:textSize="20sp"
         android:scrollbars="vertical"/>
 
     <Button
-        android:layout_width="100sp"
+        android:layout_width="150sp"
         android:layout_height="50sp"
         android:textColor="#FFFFFF"
         android:background="@drawable/buttonshape"
@@ -58,33 +78,8 @@
         android:layout_below="@+id/textJobDescription"
         android:gravity="center"
         android:layout_centerInParent="true"
-        android:visibility="invisible"
         android:onClick="onClickCurrentBids"
         />
 
-    <Button
-        android:layout_width="100sp"
-        android:layout_height="50sp"
-        android:textColor="#FFFFFF"
-        android:background="@drawable/buttonshape"
-        android:id="@+id/buttonJobPlaceBid"
-        android:text="@string/item_button_place_bid"
-        android:layout_below="@+id/textJobDescription"
-        android:layout_toRightOf="@+id/editJobBid"
-        android:layout_toEndOf="@+id/editJobBid"
-        android:gravity="center"
-        />
 
-    <EditText
-        android:layout_width="140sp"
-        android:layout_height="50sp"
-        android:id="@+id/editJobBid"
-        android:hint="@string/item_edit_bid_hint"
-        android:layout_below="@+id/textJobDescription"
-        android:layout_marginStart="50sp"
-        android:layout_marginLeft="50sp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        android:inputType="numberDecimal"
-        />
 </RelativeLayout>

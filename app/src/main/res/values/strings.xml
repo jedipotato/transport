@@ -44,5 +44,6 @@
     <string name="my_bids">My Bids</string>
     <string name="item_button_current_bids">View Current Bids</string>
     <string name="title_activity_bids_list">BidsListActivity</string>
+    <string name="item_text_expiration_date">Expiration date:</string>
 
 </resources>

@@ -12,7 +12,8 @@ public interface ApiCallables {
     void getUser();
     void updateUser(String name, String surname, String username, String email, String password);
     void getBidsByUser();
-    void getBidsByJob(String jobId);
+    void getBidsByJob(String jobId, String categoryId);
+    void postBid(String jobId, String categoryId, String bid, String userId);
 
     void createUser(String name, String surname, String username, String password, String email);
     void login(String username, String password);

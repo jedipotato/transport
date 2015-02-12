@@ -12,8 +12,15 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/bidUsername"
+        android:textSize="30sp"
+        android:textColor="#FFFFFF"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/bidValue"
-        android:textSize="10sp"
+        android:textSize="15sp"
         android:textColor="#FFFFFF"/>
 
 </LinearLayout>

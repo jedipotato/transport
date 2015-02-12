@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -16,6 +19,9 @@ import hr.tvz.zavrsni.json.TransportApiListener;
 
 public class BidsListActivity extends TransportActivity implements TransportApiListener<Bids> {
     private String mJobId = new String();
+    private String mUserId = new String();
+    private String mCategoryId = new String();
+    private boolean mIsUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +30,15 @@ public class BidsListActivity extends TransportActivity implements TransportApiL
 
         if(getIntent().hasExtra("job_id")){
             mJobId = getIntent().getStringExtra("job_id");
+        }
+        if(getIntent().hasExtra("category_id")){
+            mCategoryId = getIntent().getStringExtra("category_id");
+        }
+        if(getIntent().hasExtra("is_user")){
+            mIsUser = getIntent().getBooleanExtra("is_user", false);
+        }
+        if(getIntent().hasExtra("user_id")){
+            mUserId = getIntent().getStringExtra("user_id");
         }
     }
 
@@ -56,8 +71,7 @@ public class BidsListActivity extends TransportActivity implements TransportApiL
         App app = (App) getApplication();
         app.setTransportApiListener(this);
 
-        app.getBidsByJob(mJobId);
-        Toast.makeText(getApplicationContext(), "Loading bids...", Toast.LENGTH_SHORT).show();
+        app.getBidsByJob(mJobId, mCategoryId);
     }
 
     @Override
@@ -71,14 +85,40 @@ public class BidsListActivity extends TransportActivity implements TransportApiL
     public void onApiResponse(Bids response) {
         if (!checkUserAuthenticationResponseAndReset(response)) return;
 
-        ListView listView = (ListView) findViewById(R.id.bidList);
-        BidAdapter adapter = new BidAdapter(getApplicationContext(), new ArrayList<>(response.getBidsList()));
-        listView.setAdapter(adapter);
+        if(response.getSuccess() == 1) {
+            Toast.makeText(getApplicationContext(), response.getMessage(), Toast.LENGTH_SHORT).show();
+            ListView listView = (ListView) findViewById(R.id.bidList);
+            BidAdapter adapter = new BidAdapter(getApplicationContext(), new ArrayList<>(response.getBidsList()));
+            listView.setAdapter(adapter);
+        }
+        if(response.getSuccess() == 0) {
+            Toast.makeText(getApplicationContext(), response.getMessage(), Toast.LENGTH_SHORT).show();
+            ListView listView = (ListView) findViewById(R.id.bidList);
+            BidAdapter adapter = new BidAdapter(getApplicationContext(), new ArrayList<>(response.getBidsList()));
+            listView.setAdapter(adapter);
+        }
+        if(response.getSuccess() == -2){
+            Toast.makeText(getApplicationContext(), response.getMessage(), Toast.LENGTH_SHORT).show();
+        }
 
+        EditText editBid = (EditText) findViewById(R.id.editJobBid);
+        Button buttonPlaceBid = (Button) findViewById(R.id.buttonJobPlaceBid);
+
+        if(mIsUser){
+            editBid.setVisibility(View.GONE);
+            buttonPlaceBid.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void onApiFailure(String message) {
         super.alert(TextUtils.isEmpty(message) ? getString(R.string.api_alert_dialog_body) : message);
+    }
+
+    public void onClickPlaceBid(View view) {
+        App app = (App) getApplication();
+        app.setTransportApiListener(this);
+        EditText editBid = (EditText) findViewById(R.id.editJobBid);
+        app.postBid(mJobId, mCategoryId, editBid.getText().toString(),mUserId);
     }
 }

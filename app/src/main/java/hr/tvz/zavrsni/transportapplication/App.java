@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import hr.tvz.zavrsni.domain.api.BasicModel;
+import hr.tvz.zavrsni.domain.api.Bid;
 import hr.tvz.zavrsni.domain.api.Bids;
 import hr.tvz.zavrsni.domain.api.Categories;
 import hr.tvz.zavrsni.domain.api.Job;
@@ -224,8 +225,8 @@ public class App extends Application implements ApiCallables {
     }
 
     @Override
-    public void getBidsByJob(String jobId) {
-        apiServiceAdapter().getBidsByJob(jobId, new Callback<Bids>() {
+    public void getBidsByJob(String jobId, String categoryId) {
+        apiServiceAdapter().getBidsByJob(jobId, categoryId, new Callback<Bids>() {
             @Override
             public void success(Bids bids, Response response) {
                 if (mTransportApiListener != null) {
@@ -241,6 +242,27 @@ public class App extends Application implements ApiCallables {
             }
         });
     }
+
+    @Override
+    public void postBid(String jobId, String categoryId, String bid, String userId) {
+        Bid newBid = new Bid(jobId, bid, userId);
+        apiServiceAdapter().postBid(newBid, jobId, categoryId, new Callback<Bids>() {
+            @Override
+            public void success(Bids bids, Response response) {
+                if(mTransportApiListener != null){
+                    mTransportApiListener.onApiResponse(bids);
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                if (mTransportApiListener != null) {
+                    mTransportApiListener.onApiFailure(null);
+                }
+            }
+        });
+    }
+
 
     @Override
     public void createUser(String name, String surname, String username, String password, String email) {
