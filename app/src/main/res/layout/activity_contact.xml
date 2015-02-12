@@ -1,0 +1,81 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="hr.tvz.zavrsni.transportapplication.ContactActivity"
+    android:background="@color/accent_material_light">
+
+    <TextView
+        android:id="@+id/contactUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="@string/contact_username"
+        android:textColor="@color/abc_primary_text_material_dark"
+        android:textSize="35sp" />
+
+    <TextView
+        android:id="@+id/contactCompany"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:text="@string/contact_company"
+        android:textColor="@color/abc_primary_text_material_dark"
+        android:layout_below="@+id/contactUsername"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/contactNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="@string/contact_number"
+        android:textColor="@color/abc_primary_text_material_dark"
+        android:layout_below="@+id/contactCompany"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/contactEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="@string/contact_email"
+        android:textColor="@color/abc_primary_text_material_dark"
+        android:layout_below="@+id/contactNumber"
+        android:textSize="20sp" />
+
+
+
+
+
+    <TextView
+        android:id="@+id/contactName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="@string/contact_name"
+        android:textColor="@color/abc_primary_text_material_dark"
+        android:layout_below="@+id/contactEmail"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/contactSurname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="@string/contact_surname"
+        android:textColor="@color/abc_primary_text_material_dark"
+        android:layout_below="@+id/contactName"
+        android:textSize="20sp" />
+
+
+
+</RelativeLayout>

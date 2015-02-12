@@ -186,6 +186,25 @@ public class App extends Application implements ApiCallables {
     }
 
     @Override
+    public void getUserByUsername(String username) {
+        apiServiceAdapter().getUserByUsername(username, new Callback<User>() {
+            @Override
+            public void success(User user, Response response) {
+                if (mTransportApiListener != null) {
+                    mTransportApiListener.onApiResponse(user);
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                if (mTransportApiListener != null) {
+                    mTransportApiListener.onApiResponse(null);
+                }
+            }
+        });
+    }
+
+    @Override
     public void updateUser(String name, String surname, String username, String email, String password, String company, String contact) {
         User user = new User(name, surname, username, password != null ? Crypt.md5(password) : null, email, company, contact);
         apiServiceAdapter().updateUser(user, new Callback<BasicModel>() {

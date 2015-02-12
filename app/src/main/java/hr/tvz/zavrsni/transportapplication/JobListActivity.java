@@ -105,11 +105,12 @@ public class JobListActivity extends TransportActivity implements TransportApiLi
                 }
             });
         }
+
+
     }
 
     @Override
     public void onApiFailure(String message) {
-        pDialog.dismiss();
         super.alert(TextUtils.isEmpty(message) ? getString(R.string.api_alert_dialog_body) : message);
     }
 

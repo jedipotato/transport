@@ -60,6 +60,10 @@
             android:name=".NewJobActivity"
             android:label="@string/title_activity_new_job" >
         </activity>
+        <activity
+            android:name=".ContactActivity"
+            android:label="@string/title_activity_contact" >
+        </activity>
     </application>
 
 </manifest>

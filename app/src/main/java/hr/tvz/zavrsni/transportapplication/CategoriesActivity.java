@@ -17,7 +17,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import hr.tvz.zavrsni.adapter.CategoryAdapter;
-import hr.tvz.zavrsni.domain.Category;
 import hr.tvz.zavrsni.domain.api.Categories;
 import hr.tvz.zavrsni.json.TransportApiListener;
 
@@ -25,14 +24,12 @@ import hr.tvz.zavrsni.json.TransportApiListener;
 public class CategoriesActivity extends TransportActivity implements TransportApiListener<Categories> {
 
     private ProgressDialog pDialog;
-    private ArrayList<Category> categoryList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
 
-//        new LoadAllCategories().execute();
     }
 
     @Override

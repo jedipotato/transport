@@ -33,7 +33,7 @@ public class BidAdapterUser extends ArrayAdapter<Bid> {
 
         Bid bid = getItem(position);
 
-        holder.jobId.setText(bid.getJobId() + " KN");
+        holder.jobId.setText(bid.getJobId());
         holder.bidValue.setText(bid.getBid());
         holder.jobName.setText(bid.getJobName());
 

@@ -39,6 +39,9 @@ public interface ApiServices {
     @GET(Const.API_USER)
     void getUser(Callback<User> result);
 
+    @GET(Const.API_USER_USERNAME)
+    void getUserByUsername(@Path("username") String username, Callback<User> result);
+
     @GET(Const.API_BIDS)
     void getBidsByJob(@Path("job_id") String jobId, @Path("category_id") String categoryId, Callback<Bids> result);
 

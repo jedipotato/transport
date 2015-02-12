@@ -15,6 +15,7 @@ import hr.tvz.zavrsni.json.TransportApiListener;
 
 public class JobActivity extends TransportActivity implements TransportApiListener<Job> {
     private String mJobId = new String();
+    private String mExpirationDate = new String();
     private String mCategoryId = new String();
     private boolean mIsUser;
     private String mUserId = new String();
@@ -102,14 +103,22 @@ public class JobActivity extends TransportActivity implements TransportApiListen
         TextView textDescription = (TextView)findViewById(R.id.textJobDescription);
         TextView textExpirationDate = (TextView)findViewById(R.id.textJobExpirationDateValue);
 
-        jobLowestBid.setText(response.getLowestBid() + " KN");
+        if(response.getLowestBid() == null){
+            jobLowestBid.setText("No bids!");
+        }
+        else{
+            jobLowestBid.setText(response.getLowestBid());
+        }
         textName.setText(response.getName());
         textDescription.setText(response.getDescription());
         textExpirationDate.setText(response.getExpirationDate());
 
+        if(mCategoryId == null){
+            response.getCategoryId();
+        }
         mIsUser = response.isUser();
         mUserId = response.getUserId();
-        //Button buttonCurrentBids = (Button) findViewById(R.id.buttonCurrentBids);
+        mExpirationDate = response.getExpirationDate();
 
     }
 
@@ -124,6 +133,7 @@ public class JobActivity extends TransportActivity implements TransportApiListen
         i.putExtra("job_id", mJobId);
         i.putExtra("user_id", mUserId);
         i.putExtra("category_id", mCategoryId);
+        i.putExtra("expiration_date",mExpirationDate);
         startActivity(i);
     }
 }
