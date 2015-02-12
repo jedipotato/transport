@@ -263,6 +263,26 @@ public class App extends Application implements ApiCallables {
         });
     }
 
+    @Override
+    public void postJob(String categoryId, String jobName, String jobDescription, String duration) {
+        Job newJob = new Job(categoryId,jobName,jobDescription,duration);
+        apiServiceAdapter().createJob(newJob,categoryId, new Callback<BasicModel>() {
+            @Override
+            public void success(BasicModel basicModel, Response response) {
+                if(mTransportApiListener != null){
+                    mTransportApiListener.onApiResponse(basicModel);
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                if (mTransportApiListener != null) {
+                    mTransportApiListener.onApiFailure(null);
+                }
+            }
+        });
+    }
+
 
     @Override
     public void createUser(String name, String surname, String username, String password, String email) {

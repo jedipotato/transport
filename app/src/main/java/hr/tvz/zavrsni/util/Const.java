@@ -51,6 +51,7 @@ public interface Const {
     String JOB_EXPIRATION_DATE = "expiration_date";
     String JOB_LOWEST_BID = "lowest_bid";
     String JOB_LOWEST_USER = "lowest_user";
+    String JOB_DURATION = "duration";
 
     //bids table
     String BIDS = "bids";

@@ -1,0 +1,93 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="hr.tvz.zavrsni.transportapplication.NewJobActivity"
+    android:background="@color/accent_material_light">
+
+    <TextView
+        android:id="@+id/textNewJobName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/abc_primary_text_material_dark"
+        android:gravity="center"
+        android:text="@string/new_job_name"
+        android:layout_marginTop="5dp"
+        android:textSize="20sp"/>
+
+    <EditText
+        android:id="@+id/newJobNameInput"
+        android:inputType="textPersonName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/abc_primary_text_material_dark"
+        android:gravity="center"
+        android:hint="@string/new_job_name_hint"
+        android:layout_below="@+id/textNewJobName"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"/>
+
+    <TextView
+        android:id="@+id/textNewJobDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/abc_primary_text_material_dark"
+        android:gravity="center"
+        android:layout_below="@+id/newJobNameInput"
+        android:text="@string/new_job_description"
+        android:layout_marginTop="5dp"
+        android:textSize="20sp"/>
+
+    <EditText
+        android:id="@+id/newJobDescriptionInput"
+        android:inputType="textPersonName"
+        android:layout_width="match_parent"
+        android:layout_height="220sp"
+        android:hint="@string/new_job_description_hint"
+        android:textColor="@color/abc_primary_text_material_dark"
+        android:layout_below="@+id/textNewJobDescription"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:gravity="start"/>
+
+    <TextView
+        android:id="@+id/newJobDate"
+        android:layout_width="250sp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/abc_primary_text_material_dark"
+        android:gravity="center"
+        android:layout_below="@+id/newJobDescriptionInput"
+        android:text="@string/new_job_date"
+        android:layout_marginTop="40sp"
+        android:textSize="20sp"/>
+
+    <Spinner
+        android:id="@+id/newJobSpinnerDays"
+        android:layout_width="80sp"
+        android:layout_height="50sp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        android:layout_toRightOf="@+id/newJobDate"
+        android:layout_below="@+id/newJobDescriptionInput"
+        android:layout_marginTop="35sp"></Spinner>
+
+    <Button
+        android:id="@+id/buttonNewJob"
+        android:text="@string/new_job_button_create"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:layout_width="220dp"
+        android:layout_height="40dp"
+        android:background="@drawable/buttonshape"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/newJobSpinnerDays"
+        android:layout_marginTop="25dp"
+        android:onClick="onClickCreateJob"/>
+
+
+</RelativeLayout>

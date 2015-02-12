@@ -10,8 +10,22 @@
     <ListView
         android:id="@+id/jobList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="380sp"
         ></ListView>
+
+    <Button
+        android:layout_width="150sp"
+        android:layout_height="50sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/buttonshape"
+        android:id="@+id/buttonNewJob"
+        android:text="@string/button_new_job"
+        android:layout_below="@+id/jobList"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:onClick="onClickNewJob"
+        android:layout_marginTop="15sp"
+        />
 
 
 </RelativeLayout>

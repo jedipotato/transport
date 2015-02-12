@@ -56,6 +56,10 @@
             android:name=".BidsListActivity"
             android:label="@string/title_activity_bids_list" >
         </activity>
+        <activity
+            android:name=".NewJobActivity"
+            android:label="@string/title_activity_new_job" >
+        </activity>
     </application>
 
 </manifest>

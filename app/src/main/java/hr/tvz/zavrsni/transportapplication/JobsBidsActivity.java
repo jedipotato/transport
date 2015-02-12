@@ -46,4 +46,8 @@ public class JobsBidsActivity extends ActionBarActivity {
     public void onClickBids(View view) {
         startActivity(new Intent(this, MyBidsActivity.class));
     }
+
+    public void onClickNewJob(View view) {
+        startActivity(new Intent(this, NewJobActivity.class));
+    }
 }

@@ -86,28 +86,37 @@ public class JobListActivity extends TransportActivity implements TransportApiLi
     public void onApiResponse(Jobs response) {
         if (!checkUserAuthenticationResponseAndReset(response)) return;
 
-        ListView listView = (ListView) findViewById(R.id.jobList);
-        JobAdapter adapter = new JobAdapter(getApplicationContext(), new ArrayList<>(response.getJobsList()));
-        listView.setAdapter(adapter);
+        if(response.getSuccess() == 1){
+            ListView listView = (ListView) findViewById(R.id.jobList);
+            JobAdapter adapter = new JobAdapter(getApplicationContext(), new ArrayList<>(response.getJobsList()));
+            listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(@NonNull AdapterView<?> parent, @NonNull View view, int position, long id) {
-                TextView idTextView = (TextView) view.findViewById(R.id.jobId);
-                Intent i = new Intent(JobListActivity.this, JobActivity.class);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(@NonNull AdapterView<?> parent, @NonNull View view, int position, long id) {
+                    TextView idTextView = (TextView) view.findViewById(R.id.jobId);
+                    Intent i = new Intent(JobListActivity.this, JobActivity.class);
 
-                i.putExtra("job_id", idTextView.getText().toString());
-                i.putExtra("category_id", mCategoryId);
-                Log.e("JobListActivity::job_id",idTextView.getText().toString());
-                Log.e("JobListActivity::category_id",mCategoryId);
-                startActivity(i);
-            }
-        });
+                    i.putExtra("job_id", idTextView.getText().toString());
+                    i.putExtra("category_id", mCategoryId);
+                    Log.e("JobListActivity::job_id",idTextView.getText().toString());
+                    Log.e("JobListActivity::category_id",mCategoryId);
+                    startActivity(i);
+                }
+            });
+        }
     }
 
     @Override
     public void onApiFailure(String message) {
+        pDialog.dismiss();
         super.alert(TextUtils.isEmpty(message) ? getString(R.string.api_alert_dialog_body) : message);
+    }
+
+    public void onClickNewJob(View view) {
+        Intent i = new Intent(this,NewJobActivity.class);
+        i.putExtra("category_id",mCategoryId);
+        startActivity(i);
     }
 
     /*class LoadAllJobs extends AsyncTask<String, Void, ArrayList<Job>> {

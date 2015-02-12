@@ -12,10 +12,25 @@
         android:layout_height="50sp"
         android:textColor="#FFFFFF"
         android:background="@drawable/buttonshape"
+        android:id="@+id/buttonJobNewJob"
+        android:text="@string/my_jobs_new_job"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:onClick="onClickNewJob"
+        android:layout_marginTop="150sp"
+        />
+
+    <Button
+        android:layout_width="200sp"
+        android:layout_height="50sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/buttonshape"
         android:id="@+id/buttonMyJobs"
         android:text="@string/my_jobs"
         android:gravity="center"
-        android:layout_centerInParent="true"
+        android:layout_below="@+id/buttonJobNewJob"
+        android:layout_marginTop="20sp"
+        android:layout_centerHorizontal="true"
         android:onClick="onClickJobs"
         />
 
@@ -24,11 +39,11 @@
         android:layout_height="50sp"
         android:textColor="#FFFFFF"
         android:background="@drawable/buttonshape"
-        android:id="@+id/buttonJobPlaceBid"
+        android:id="@+id/buttonMyBids"
         android:text="@string/my_bids"
         android:layout_below="@+id/buttonMyJobs"
         android:gravity="center"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20sp"
         android:onClick="onClickBids"
         />

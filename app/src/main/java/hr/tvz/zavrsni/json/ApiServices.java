@@ -12,6 +12,7 @@ import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.POST;
+import retrofit.http.PUT;
 import retrofit.http.Path;
 
 /**
@@ -50,4 +51,6 @@ public interface ApiServices {
     @POST(Const.API_BIDS)
     void postBid(@Body Bid bid, @Path("job_id") String jobId, @Path("category_id") String categoryId, Callback<Bids> result);
 
+    @PUT(Const.API_JOBS)
+    void createJob(@Body Job job, @Path("category_id") String categoryId, Callback<BasicModel> result);
 }

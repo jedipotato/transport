@@ -45,5 +45,15 @@
     <string name="item_button_current_bids">View Current Bids</string>
     <string name="title_activity_bids_list">BidsListActivity</string>
     <string name="item_text_expiration_date">Expiration date:</string>
+    <string name="my_jobs_new_job">New Job</string>
+    <string name="title_activity_new_job">NewJobActivity</string>
+    <string name="text_new_job_category">Category</string>
+    <string name="button_new_job">New Job</string>
+    <string name="new_job_name">Name</string>
+    <string name="new_job_description">Description</string>
+    <string name="new_job_date">Bidding duration (days):</string>
+    <string name="new_job_description_hint">Enter Description</string>
+    <string name="new_job_name_hint">Enter job name...</string>
+    <string name="new_job_button_create">Submit</string>
 
 </resources>

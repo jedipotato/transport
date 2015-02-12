@@ -91,13 +91,13 @@ public class BidsListActivity extends TransportActivity implements TransportApiL
             BidAdapter adapter = new BidAdapter(getApplicationContext(), new ArrayList<>(response.getBidsList()));
             listView.setAdapter(adapter);
         }
-        if(response.getSuccess() == 0) {
+        if(response.getSuccess() == -2) {
             Toast.makeText(getApplicationContext(), response.getMessage(), Toast.LENGTH_SHORT).show();
             ListView listView = (ListView) findViewById(R.id.bidList);
             BidAdapter adapter = new BidAdapter(getApplicationContext(), new ArrayList<>(response.getBidsList()));
             listView.setAdapter(adapter);
         }
-        if(response.getSuccess() == -2){
+        if(response.getSuccess() == -3){
             Toast.makeText(getApplicationContext(), response.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
