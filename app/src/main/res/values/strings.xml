@@ -55,5 +55,7 @@
     <string name="new_job_description_hint">Enter Description</string>
     <string name="new_job_name_hint">Enter job name...</string>
     <string name="new_job_button_create">Submit</string>
+    <string name="profile_text_contact">Contact number</string>
+    <string name="profile_text_company_name">Company name</string>
 
 </resources>

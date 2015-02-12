@@ -102,6 +102,50 @@
             android:textColor="@color/abc_primary_text_material_dark" />
 
         <TextView
+            android:id="@+id/profileTextContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/profile_text_contact"
+            android:textColor="@color/abc_primary_text_material_dark"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/profileInputContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="8dp"
+            android:enabled="false"
+            android:gravity="center"
+            android:inputType="phone"
+            android:textColor="@color/abc_primary_text_material_dark" />
+
+        <TextView
+            android:id="@+id/profileTextCompanyName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/profile_text_company_name"
+            android:textColor="@color/abc_primary_text_material_dark"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/profileInputCompanyName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="8dp"
+            android:enabled="false"
+            android:gravity="center"
+            android:inputType="textNoSuggestions"
+            android:textColor="@color/abc_primary_text_material_dark" />
+
+        <TextView
             android:id="@+id/profileTextPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

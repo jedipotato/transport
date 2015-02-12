@@ -10,7 +10,7 @@ public interface ApiCallables {
     void getJobById(String jobId);
     void getJobsByUser();
     void getUser();
-    void updateUser(String name, String surname, String username, String email, String password);
+    void updateUser(String name, String surname, String username, String email, String password, String company, String contact);
     void getBidsByUser();
     void getBidsByJob(String jobId, String categoryId);
     void postBid(String jobId, String categoryId, String bid, String userId);

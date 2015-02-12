@@ -12,17 +12,22 @@ public class User extends BasicModel {
     @SerializedName(Const.USER_USERNAME) private String username;
     @SerializedName(Const.USER_PASSWORD) private String password;
     @SerializedName(Const.USER_EMAIL) private String email;
+    @SerializedName(Const.USER_COMPANY) private String companyName;
+    @SerializedName(Const.USER_CONTACT) private String contact;
 
-    public User(String name, String surname,String username, String password, String email) {
+    public User(String name, String surname,String username, String password, String email,
+                String companyName, String contact) {
         this.name = name;
         this.surname = surname;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.companyName = companyName;
+        this.contact = contact;
     }
 
     public String getUserId() {
-        return userId;
+        return userId == null ? "" : userId;
     }
 
     public void setUserId(String userId) {
@@ -30,7 +35,7 @@ public class User extends BasicModel {
     }
 
     public String getName() {
-        return name;
+        return name == null ? "" : name;
     }
 
     public void setName(String name) {
@@ -38,7 +43,7 @@ public class User extends BasicModel {
     }
 
     public String getSurname() {
-        return surname;
+        return surname == null ? "" : surname;
     }
 
     public void setSurname(String surname) {
@@ -46,7 +51,7 @@ public class User extends BasicModel {
     }
 
     public String getPassword() {
-        return password;
+        return password == null ? "" : password;
     }
 
     public void setPassword(String password) {
@@ -54,7 +59,7 @@ public class User extends BasicModel {
     }
 
     public String getEmail() {
-        return email;
+        return email == null ? "" : email;
     }
 
     public void setEmail(String email) {
@@ -62,11 +67,27 @@ public class User extends BasicModel {
     }
 
     public String getUsername() {
-        return username;
+        return username == null ? "" : username;
     }
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getCompanyName() {
+        return companyName == null ? "" : companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getContact() {
+        return contact == null ? "" : contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
     @Override
@@ -77,6 +98,9 @@ public class User extends BasicModel {
 
         User user = (User) o;
 
+        if (companyName != null ? !companyName.equals(user.companyName) : user.companyName != null)
+            return false;
+        if (contact != null ? !contact.equals(user.contact) : user.contact != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
         if (name != null ? !name.equals(user.name) : user.name != null) return false;
         if (password != null ? !password.equals(user.password) : user.password != null)
@@ -98,6 +122,8 @@ public class User extends BasicModel {
         result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (companyName != null ? companyName.hashCode() : 0);
+        result = 31 * result + (contact != null ? contact.hashCode() : 0);
         return result;
     }
 
@@ -110,6 +136,8 @@ public class User extends BasicModel {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", contact='" + contact + '\'' +
                 '}';
     }
 }

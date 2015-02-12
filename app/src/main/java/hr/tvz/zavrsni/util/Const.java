@@ -34,6 +34,8 @@ public interface Const {
     String USER_USERNAME = "username";
     String USER_PASSWORD = "password";
     String USER_EMAIL = "email";
+    String USER_COMPANY = "company_name";
+    String USER_CONTACT = "contact";
 
 
     //category table

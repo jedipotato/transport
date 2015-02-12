@@ -22,6 +22,8 @@ public class ProfileActivity extends TransportActivity {
     private EditText mEditTextPassword;
     private EditText mEditTextNewPassword;
     private EditText mEditTextRepeatNewPassword;
+    private EditText mEditTextContactPhone;
+    private EditText mEditTextCompanyName;
     private TextView mTextViewPassword;
     private TextView mTextViewNewPassword;
     private TextView mTextViewRepeatNewPassword;
@@ -78,12 +80,16 @@ public class ProfileActivity extends TransportActivity {
         mEditTextSurname.setText(user.getSurname());
         mTextViewUsername.setText(user.getUsername());
         mEditTextEmail.setText(user.getEmail());
+        mEditTextCompanyName.setText(user.getCompanyName());
+        mEditTextContactPhone.setText(user.getContact());
     }
 
     private void switchMode(boolean isEditMode) {
         mEditTextName.setEnabled(isEditMode);
         mEditTextSurname.setEnabled(isEditMode);
         mEditTextEmail.setEnabled(isEditMode);
+        mEditTextContactPhone.setEnabled(isEditMode);
+        mEditTextCompanyName.setEnabled(isEditMode);
         mEditTextPassword.setEnabled(isEditMode);
         mEditTextPassword.setVisibility(isEditMode ? View.VISIBLE : View.GONE);
         mEditTextNewPassword.setEnabled(isEditMode);
@@ -105,6 +111,8 @@ public class ProfileActivity extends TransportActivity {
         mEditTextName.setError(null);
         mEditTextSurname.setError(null);
         mEditTextEmail.setError(null);
+        mEditTextCompanyName.setError(null);
+        mEditTextContactPhone.setError(null);
         mEditTextPassword.setError(null);
         mEditTextNewPassword.setError(null);
         mEditTextRepeatNewPassword.setError(null);
@@ -124,6 +132,11 @@ public class ProfileActivity extends TransportActivity {
         if (email.length() < 2 || email.length() > 40) {
             isOK = false;
             mEditTextEmail.setError("E-mail input error!");
+        }
+        String contact = mEditTextContactPhone.getText().toString();
+        if (contact.length() < 4) {
+            isOK = false;
+            mEditTextContactPhone.setError("Contact number has to be correct (small numbers are not valid)");
         }
 
         TransportPreferences prefs = new TransportPreferences(this);
@@ -162,6 +175,8 @@ public class ProfileActivity extends TransportActivity {
         mEditTextSurname = (EditText) findViewById(R.id.profileInputSurname);
         mTextViewUsername = (TextView) findViewById(R.id.profileInputUsername);
         mEditTextEmail = (EditText) findViewById(R.id.profileInputEmail);
+        mEditTextCompanyName = (EditText) findViewById(R.id.profileInputCompanyName);
+        mEditTextContactPhone = (EditText) findViewById(R.id.profileInputContact);
         mEditTextPassword = (EditText) findViewById(R.id.profileInputPassword);
         mEditTextNewPassword = (EditText) findViewById(R.id.profileInputNewPassword);
         mEditTextRepeatNewPassword = (EditText) findViewById(R.id.profileInputRepeatNewPassword);
@@ -199,13 +214,23 @@ public class ProfileActivity extends TransportActivity {
                 if (!mUser.getEmail().equals(mEditTextEmail.getText().toString())) {
                     email = mEditTextEmail.getText().toString();
                 }
+                String contact = "";
+                if (!mUser.getContact().equals(mEditTextContactPhone.getText().toString())) {
+                    contact = mEditTextContactPhone.getText().toString();
+                }
+                String companyName = "";
+                if (!mUser.getCompanyName().equals(mEditTextCompanyName.getText().toString())) {
+                    companyName = mEditTextCompanyName.getText().toString();
+                }
                 String password = mEditTextNewPassword.getText().toString();
 
                 mApp.updateUser(TextUtils.isEmpty(name) ? null : name,
                         TextUtils.isEmpty(surname) ? null : surname,
-                        mUser.getUsername(),
+                        null,
                         TextUtils.isEmpty(email) ? null : email,
-                        TextUtils.isEmpty(password) ? null : password);
+                        TextUtils.isEmpty(password) ? null : password,
+                        TextUtils.isEmpty(companyName) ? null : companyName,
+                        TextUtils.isEmpty(contact) ? null : contact);
             }
         }
     }

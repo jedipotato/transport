@@ -138,7 +138,7 @@ public class App extends Application implements ApiCallables {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e("App.getJobByJobId failed", error.toString());
+                Log.e("App.getJobByJobId", error.toString());
                 if (mTransportApiListener != null) {
                     mTransportApiListener.onApiFailure(null);
                 }
@@ -158,7 +158,7 @@ public class App extends Application implements ApiCallables {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e("App.getJobsByUser failed", error.toString());
+                Log.e("App.getJobsByUser", error.toString());
                 if (mTransportApiListener != null) {
                     mTransportApiListener.onApiFailure(null);
                 }
@@ -186,8 +186,8 @@ public class App extends Application implements ApiCallables {
     }
 
     @Override
-    public void updateUser(String name, String surname, String username, String email, String password) {
-        User user = new User(name, surname, username, password != null ? Crypt.md5(password) : null, email);
+    public void updateUser(String name, String surname, String username, String email, String password, String company, String contact) {
+        User user = new User(name, surname, username, password != null ? Crypt.md5(password) : null, email, company, contact);
         apiServiceAdapter().updateUser(user, new Callback<BasicModel>() {
             @Override
             public void success(BasicModel basicModel, Response response) {
@@ -286,7 +286,7 @@ public class App extends Application implements ApiCallables {
 
     @Override
     public void createUser(String name, String surname, String username, String password, String email) {
-        User user = new User(name, surname, username, Crypt.md5(password), email);
+        User user = new User(name, surname, username, Crypt.md5(password), email, null, null);
         mLoginService.putUser(user, new Callback<BasicModel>() {
             @Override
             public void success(BasicModel basicModel, Response response) {
