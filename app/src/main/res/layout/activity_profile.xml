@@ -16,6 +16,26 @@
         android:paddingTop="24dp">
 
         <TextView
+            android:id="@+id/profileTextUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/registration_text_username"
+            android:textColor="@color/abc_primary_text_material_dark"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/profileInputUsername"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:textColor="@color/abc_primary_text_material_dark" />
+
+        <TextView
             android:id="@+id/profileTextName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,28 +77,6 @@
             android:enabled="false"
             android:gravity="center"
             android:inputType="textPersonName"
-            android:textColor="@color/abc_primary_text_material_dark" />
-
-        <TextView
-            android:id="@+id/profileTextUsername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="@string/registration_text_username"
-            android:textColor="@color/abc_primary_text_material_dark"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/profileInputUsername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginTop="8dp"
-            android:enabled="false"
-            android:gravity="center"
-            android:inputType="textNoSuggestions"
             android:textColor="@color/abc_primary_text_material_dark" />
 
         <TextView

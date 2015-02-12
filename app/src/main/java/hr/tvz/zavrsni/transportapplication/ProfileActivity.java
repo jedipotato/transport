@@ -17,7 +17,7 @@ public class ProfileActivity extends TransportActivity {
 
     private EditText mEditTextName;
     private EditText mEditTextSurname;
-    private EditText mEditTextUsername;
+    private TextView mTextViewUsername;
     private EditText mEditTextEmail;
     private EditText mEditTextPassword;
     private EditText mEditTextNewPassword;
@@ -76,14 +76,13 @@ public class ProfileActivity extends TransportActivity {
     private void fillForm(User user) {
         mEditTextName.setText(user.getName());
         mEditTextSurname.setText(user.getSurname());
-        mEditTextUsername.setText(user.getUsername());
+        mTextViewUsername.setText(user.getUsername());
         mEditTextEmail.setText(user.getEmail());
     }
 
     private void switchMode(boolean isEditMode) {
         mEditTextName.setEnabled(isEditMode);
         mEditTextSurname.setEnabled(isEditMode);
-        mEditTextUsername.setEnabled(isEditMode);
         mEditTextEmail.setEnabled(isEditMode);
         mEditTextPassword.setEnabled(isEditMode);
         mEditTextPassword.setVisibility(isEditMode ? View.VISIBLE : View.GONE);
@@ -105,7 +104,6 @@ public class ProfileActivity extends TransportActivity {
     private boolean formValidation() {
         mEditTextName.setError(null);
         mEditTextSurname.setError(null);
-        mEditTextUsername.setError(null);
         mEditTextEmail.setError(null);
         mEditTextPassword.setError(null);
         mEditTextNewPassword.setError(null);
@@ -121,11 +119,6 @@ public class ProfileActivity extends TransportActivity {
         if (surname.length() < 1 || surname.length() > 30) {
             isOK = false;
             mEditTextSurname.setError("Last name input error!");
-        }
-        String username = mEditTextUsername.getText().toString();
-        if (username.length() < 1 || username.length() > 12) {
-            isOK = false;
-            mEditTextUsername.setError("Username input error!");
         }
         String email = mEditTextEmail.getText().toString();
         if (email.length() < 2 || email.length() > 40) {
@@ -167,7 +160,7 @@ public class ProfileActivity extends TransportActivity {
 
         mEditTextName = (EditText) findViewById(R.id.profileInputName);
         mEditTextSurname = (EditText) findViewById(R.id.profileInputSurname);
-        mEditTextUsername = (EditText) findViewById(R.id.profileInputUsername);
+        mTextViewUsername = (TextView) findViewById(R.id.profileInputUsername);
         mEditTextEmail = (EditText) findViewById(R.id.profileInputEmail);
         mEditTextPassword = (EditText) findViewById(R.id.profileInputPassword);
         mEditTextNewPassword = (EditText) findViewById(R.id.profileInputNewPassword);
@@ -202,10 +195,6 @@ public class ProfileActivity extends TransportActivity {
                 if (!mUser.getSurname().equals(mEditTextSurname.getText().toString())) {
                     surname = mEditTextSurname.getText().toString();
                 }
-                String username = "";
-                if (!mUser.getUsername().equals(mEditTextUsername.getText().toString())) {
-                    username = mEditTextUsername.getText().toString();
-                }
                 String email = "";
                 if (!mUser.getEmail().equals(mEditTextEmail.getText().toString())) {
                     email = mEditTextEmail.getText().toString();
@@ -214,7 +203,7 @@ public class ProfileActivity extends TransportActivity {
 
                 mApp.updateUser(TextUtils.isEmpty(name) ? null : name,
                         TextUtils.isEmpty(surname) ? null : surname,
-                        TextUtils.isEmpty(username) ? null : username,
+                        mUser.getUsername(),
                         TextUtils.isEmpty(email) ? null : email,
                         TextUtils.isEmpty(password) ? null : password);
             }
