@@ -71,7 +71,7 @@ public class MyBidsActivity extends TransportActivity implements TransportApiLis
     public void onApiResponse(Bids response) {
         if (!checkUserAuthenticationResponseAndReset(response)) return;
 
-        ListView listView = (ListView) findViewById(R.id.bidList);
+        ListView listView = (ListView) findViewById(R.id.myBidList);
         BidAdapterUser adapter = new BidAdapterUser(getApplicationContext(), new ArrayList<>(response.getBidsList()));
         listView.setAdapter(adapter);
 

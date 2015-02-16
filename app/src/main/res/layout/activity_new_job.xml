@@ -67,7 +67,7 @@
 
     <Spinner
         android:id="@+id/newJobSpinnerDays"
-        android:layout_width="80sp"
+        android:layout_width="120sp"
         android:layout_height="50sp"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"

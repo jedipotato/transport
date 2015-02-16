@@ -139,14 +139,21 @@ public class BidsListActivity extends TransportActivity implements TransportApiL
 
         EditText editBid = (EditText) findViewById(R.id.editJobBid);
         Button buttonPlaceBid = (Button) findViewById(R.id.buttonJobPlaceBid);
+        TextView textExpirationMessage = (TextView) findViewById(R.id.textExpirationMessage);
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date currentDate = new Date();
         Date expirationDate = dateFormat.parse(mExpirationDate,new ParsePosition(0));
 
-        if(mIsUser ||  currentDate.after(expirationDate)){
+        if(mIsUser){
             editBid.setVisibility(View.GONE);
             buttonPlaceBid.setVisibility(View.GONE);
+        }
+
+        if(currentDate.after(expirationDate)){
+            editBid.setVisibility(View.GONE);
+            buttonPlaceBid.setVisibility(View.GONE);
+            textExpirationMessage.setText("Job has expired, bidding is not allowed!");
         }
     }
 
