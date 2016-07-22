@@ -50,7 +50,7 @@
         android:id="@+id/textExpirationMessage"
         android:layout_below="@+id/bidList"
         android:visibility="invisible"
-        android:textColor="@color/common_signin_btn_default_background"
+        android:textColor="@color/md_red_500"
         android:textSize="25sp"/>
 
 </RelativeLayout>
