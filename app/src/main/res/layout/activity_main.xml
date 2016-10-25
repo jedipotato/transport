@@ -4,7 +4,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
-    android:background="@color/accent_material_light">
+    android:background="@color/md_cyan_200">
 
     <TextView
         android:id="@+id/textHead"
@@ -13,7 +13,7 @@
         android:text="@string/main_text_head"
         android:textIsSelectable="false"
         android:textSize="30sp"
-        android:textColor="@color/abc_primary_text_material_dark"
+        android:textColor="@color/md_white_1000"
         android:textStyle="bold"
         android:gravity="center"
         />
@@ -37,8 +37,8 @@
             android:layout_marginEnd="15dp"
             android:text="@string/main_button_profile"
             android:gravity="bottom|center"
-            android:background="@drawable/abc_ic_menu_share_mtrl_alpha"
-            android:textColor="@color/abc_primary_text_material_dark"
+            android:background="@drawable/ic_profile"
+            android:textColor="@color/md_white_1000"
             android:onClick="onClickProfile"/>
 
         <Button
@@ -48,8 +48,8 @@
             android:layout_height="150dp"
             android:text="@string/main_button_categories"
             android:gravity="bottom|center"
-            android:background="@drawable/abc_ic_search_api_mtrl_alpha"
-            android:textColor="@color/abc_primary_text_material_dark"
+            android:background="@drawable/ic_categories"
+            android:textColor="@color/md_white_1000"
             android:onClick="onClickCategories"/>
 
         </LinearLayout>
@@ -73,8 +73,8 @@
             android:layout_marginEnd="15dp"
             android:text="@string/main_button_my_job"
             android:gravity="bottom|center"
-            android:background="@drawable/abc_ic_menu_selectall_mtrl_alpha"
-            android:textColor="@color/abc_primary_text_material_dark"
+            android:background="@drawable/ic_job"
+            android:textColor="@color/md_white_1000"
             android:onClick="onClickMyJobs"/>
 
         <Button
@@ -84,8 +84,8 @@
             android:layout_height="150dp"
             android:text="@string/main_button_logout"
             android:gravity="bottom|center"
-            android:background="@drawable/abc_ic_clear_mtrl_alpha"
-            android:textColor="@color/abc_primary_text_material_dark"
+            android:background="@drawable/ic_logout"
+            android:textColor="@color/md_white_1000"
             android:onClick="onClickLogout"/>
 
         </LinearLayout>
